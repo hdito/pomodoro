@@ -3,6 +3,7 @@ import { IoSettingsSharp } from "react-icons/io5";
 import styles from "../styles/Settings.module.scss";
 import { ErrorMessage, Field, Formik } from "formik";
 import { number, object } from "yup";
+import { SettingsField } from "./SettingsField";
 
 export const Settings = ({
   focusTime,
@@ -20,6 +21,27 @@ export const Settings = ({
   onChangeLongBreakTime: (longBreakTime: number) => void;
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const fields = [
+    {
+      title: "Focus time",
+      name: "focusTime",
+      initValue: focusTime,
+      onChange: onChangeFocusTime,
+    },
+    {
+      title: "Break time",
+      name: "breakTime",
+      initValue: breakTime,
+      onChange: onChangeBreakTime,
+    },
+    {
+      title: "Lonk break time",
+      name: "longBreakTime",
+      initValue: longBreakTime,
+      onChange: onChangeLongBreakTime,
+    },
+  ];
+
   return (
     <>
       <button onClick={() => setIsOpen(true)} className={styles.settings}>
@@ -39,122 +61,15 @@ export const Settings = ({
         >
           <div className={styles.popup}>
             <h1>Settings</h1>
-            <Formik
-              initialValues={{ focusTime }}
-              onSubmit={({ focusTime }) => onChangeFocusTime(focusTime)}
-              validationSchema={object({
-                focusTime: number()
-                  .typeError("Must be a number")
-                  .positive("Must be positive")
-                  .lessThan(60, "Can't be bigger than 1 hour")
-                  .integer("Must be a natural number")
-                  .required("Can't be empty"),
-              })}
-            >
-              {({ submitForm }) => (
-                <div className={styles.field}>
-                  <label className={styles.label} htmlFor="focusInput">
-                    Focus time
-                  </label>
-                  <div className={styles.inputContainer}>
-                    <Field
-                      className={styles.input}
-                      type="number"
-                      name="focusTime"
-                      id="focusInput"
-                    />
-                    <button
-                      onClick={() => submitForm()}
-                      className={styles.changeButton}
-                    >
-                      Change
-                    </button>
-                  </div>
-                  <ErrorMessage name="focusTime">
-                    {(msg) => <div className={styles.error}>{msg}</div>}
-                  </ErrorMessage>
-                </div>
-              )}
-            </Formik>
-            <Formik
-              initialValues={{ breakTime }}
-              onSubmit={({ breakTime }) => {
-                onChangeBreakTime(breakTime);
-                console.log(breakTime);
-              }}
-              validationSchema={object({
-                breakTime: number()
-                  .typeError("Must be a number")
-                  .positive("Must be positive")
-                  .lessThan(60, "Can't be bigger than 1 hour")
-                  .integer("Must be a natural number")
-                  .required("Can't be empty"),
-              })}
-            >
-              {({ submitForm }) => (
-                <div className={styles.field}>
-                  <label className={styles.label} htmlFor="breakInput">
-                    Break time
-                  </label>
-                  <div className={styles.inputContainer}>
-                    <Field
-                      className={styles.input}
-                      type="number"
-                      name="breakTime"
-                      id="breakInput"
-                    />
-                    <button
-                      onClick={() => submitForm()}
-                      className={styles.changeButton}
-                    >
-                      Change
-                    </button>
-                  </div>
-                  <ErrorMessage name="breakTime">
-                    {(msg) => <div className={styles.error}>{msg}</div>}
-                  </ErrorMessage>
-                </div>
-              )}
-            </Formik>
-            <Formik
-              initialValues={{ longBreakTime }}
-              onSubmit={({ longBreakTime }) =>
-                onChangeLongBreakTime(longBreakTime)
-              }
-              validationSchema={object({
-                longBreakTime: number()
-                  .typeError("Must be a number")
-                  .positive("Must be positive")
-                  .lessThan(60, "Can't be bigger than 1 hour")
-                  .integer("Must be a natural number")
-                  .required("Can't be empty"),
-              })}
-            >
-              {({ submitForm }) => (
-                <div className={styles.field}>
-                  <label className={styles.label} htmlFor="longBreakInput">
-                    Long break time
-                  </label>
-                  <div className={styles.inputContainer}>
-                    <Field
-                      className={styles.input}
-                      type="number"
-                      name="longBreakTime"
-                      id="longBreakInput"
-                    />
-                    <button
-                      onClick={() => submitForm()}
-                      className={styles.changeButton}
-                    >
-                      Change
-                    </button>
-                  </div>
-                  <ErrorMessage name="longBreakTime">
-                    {(msg) => <div className={styles.error}>{msg}</div>}
-                  </ErrorMessage>
-                </div>
-              )}
-            </Formik>
+            {fields.map((field) => (
+              <SettingsField
+                key={field.name}
+                title={field.title}
+                name={field.name}
+                onChange={field.onChange}
+                initValue={field.initValue}
+              />
+            ))}
             <button onClick={() => setIsOpen(false)} className={styles.close}>
               Close
             </button>
