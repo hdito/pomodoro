@@ -1,6 +1,6 @@
 $bg-focus: hsl(30, 100%, 30%);
-$bg-break: hsl(175, 40%, 40%);
-$bg-longBreak: hsl(200, 40%, 40%);
+$bg-break: hsl(175, 40%, 30%);
+$bg-longBreak: hsl(200, 40%, 30%);
 
 .container {
   display: flex;
@@ -34,7 +34,7 @@ $bg-longBreak: hsl(200, 40%, 40%);
   transition: background-color 200ms;
 
   &_active {
-    background-color: hsla(0, 0%, 100, 0.2);
+    background-color: hsla(0, 0%, 10, 0.2);
   }
 }
 
