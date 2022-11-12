@@ -10,10 +10,11 @@ export default function Timer() {
   const [isPause, setIsPause] = useState(true);
   const [mode, setMode] = useState<"focus" | "break" | "longBreak">("focus");
   const [iterations, setIterations] = useState(0);
-  const [focusTime, setFocusTime] = useState(25);
-  const [breakTime, setBreakTime] = useState(5);
-  const [longBreakTime, setLongBreakTime] = useState(15);
+  const [focusTime, setFocusTime] = useState(5);
+  const [breakTime, setBreakTime] = useState(2);
+  const [longBreakTime, setLongBreakTime] = useState(4);
   const [remainingTime, setRemainingTime] = useState(focusTime * 60 * 1000);
+  const [autoplay, setAutoplay] = useState(true);
   const tickRef = useRef<NodeJS.Timeout | null>(null);
 
   const b = block(styles);
@@ -30,29 +31,23 @@ export default function Timer() {
             return "longBreak";
           }
           setRemainingTime(breakTime * 60 * 1000);
+          console.log("ugh");
           setIterations((prev) => prev + 1);
           return "break";
         }
         case "break":
-          setFocusTime(focusTime * 60 * 1000);
+          setRemainingTime(focusTime * 60 * 1000);
           return "focus";
         case "longBreak":
-          setFocusTime(focusTime * 60 * 1000);
+          setRemainingTime(focusTime * 60 * 1000);
           setIterations(0);
           return "focus";
       }
     });
+    if (autoplay) return;
     setIsPause(true);
     clearInterval(tickRef.current);
-  }, [
-    remainingTime,
-    isPause,
-    mode,
-    iterations,
-    focusTime,
-    breakTime,
-    longBreakTime,
-  ]);
+  }, [remainingTime]);
 
   const initFocus = () => {
     setMode("focus");
@@ -62,6 +57,7 @@ export default function Timer() {
   };
 
   const initBreak = () => {
+    setIterations(0);
     setMode("break");
     setIsPause(true);
     setRemainingTime(breakTime * 60 * 1000);
@@ -101,7 +97,7 @@ export default function Timer() {
   const resume = () => {
     tickRef.current = setInterval(() => {
       setRemainingTime((prev) => prev - 1000);
-    }, 1000);
+    }, 1);
     setIsPause(false);
   };
 
@@ -137,6 +133,7 @@ export default function Timer() {
             focusTime={focusTime}
             breakTime={breakTime}
             longBreakTime={longBreakTime}
+            autoplay={autoplay}
             onChangeFocusTime={(focusTime) => {
               setFocusTime(focusTime);
               if (mode === "focus") stop();
@@ -149,6 +146,7 @@ export default function Timer() {
               setLongBreakTime(longBreakTime);
               if (mode === "longBreak") stop();
             }}
+            onChangeAutoplay={setAutoplay}
           />
         </div>
         <div className={styles.time}>{format(remainingTime, "mm:ss")}</div>

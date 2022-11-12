@@ -4,21 +4,26 @@ import styles from "../styles/Settings.module.scss";
 import { ErrorMessage, Field, Formik } from "formik";
 import { number, object } from "yup";
 import { SettingsField } from "./SettingsField";
+import Switch from "react-switch";
 
 export const Settings = ({
   focusTime,
   breakTime,
   longBreakTime,
+  autoplay,
   onChangeFocusTime,
   onChangeBreakTime,
   onChangeLongBreakTime,
+  onChangeAutoplay,
 }: {
   focusTime: number;
   breakTime: number;
   longBreakTime: number;
+  autoplay: boolean;
   onChangeFocusTime: (focusTime: number) => void;
   onChangeBreakTime: (breakTime: number) => void;
   onChangeLongBreakTime: (longBreakTime: number) => void;
+  onChangeAutoplay: (autoplay: boolean) => void;
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const fields = [
@@ -70,6 +75,15 @@ export const Settings = ({
                 initValue={field.initValue}
               />
             ))}
+            <label className={styles.switch}>
+              <Switch
+                uncheckedIcon={false}
+                checkedIcon={false}
+                checked={autoplay}
+                onChange={(checked) => onChangeAutoplay(checked)}
+              />
+              Autoplay
+            </label>
             <button onClick={() => setIsOpen(false)} className={styles.close}>
               Close
             </button>
