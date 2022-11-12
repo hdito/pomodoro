@@ -1,3 +1,8 @@
+@font-face {
+  font-family: "Fira Code";
+  src: url(/assets/FiraCode-Regular.ttf);
+}
+
 $bg-focus: hsl(20, 100%, 10%);
 $bg-break: hsl(175, 40%, 10%);
 $bg-longBreak: hsl(200, 40%, 10%);
@@ -52,7 +57,7 @@ $darker-text: hsl(0, 0, 10%);
 .time {
   color: $darker-text;
   font-size: 4rem;
-  font-weight: bold;
+  font-family: "Fira Code", monospace;
 }
 
 .timer {
