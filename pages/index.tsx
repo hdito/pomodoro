@@ -1,28 +1,30 @@
 import { format } from "date-fns";
 import block from "module-clsx";
 import { useEffect, useRef, useState } from "react";
-import { HiPause, HiPlay } from "react-icons/hi2";
 import { Settings } from "../components/settings";
 import styles from "../styles/Home.module.scss";
-import { IoStop } from "react-icons/io5";
 
 export default function Timer() {
   const [isPause, setIsPause] = useState(true);
   const [mode, setMode] = useState<"focus" | "break" | "longBreak">("focus");
   const [iterations, setIterations] = useState(0);
-  const [focusTime, setFocusTime] = useState(5);
+  const [focusTime, setFocusTime] = useState(1);
   const [breakTime, setBreakTime] = useState(2);
   const [longBreakTime, setLongBreakTime] = useState(4);
   const [remainingTime, setRemainingTime] = useState(focusTime * 60 * 1000);
-  const [autoplay, setAutoplay] = useState(true);
+  const [autoplay, setAutoplay] = useState(false);
   const tickRef = useRef<NodeJS.Timeout | null>(null);
 
   const b = block(styles);
 
   useEffect(() => {
+    document.title = remainingTime.toString();
+  }, [remainingTime]);
+
+  useEffect(() => {
     if (isPause) return;
     if (remainingTime > 0 || !tickRef.current) return;
-
+    console.timeLog();
     setMode((prevMode) => {
       switch (prevMode) {
         case "focus": {
@@ -82,11 +84,11 @@ export default function Timer() {
     clearInterval(tickRef.current);
     setIsPause(true);
     switch (mode) {
-      case "break":
-        setRemainingTime(breakTime * 60 * 1000);
-        break;
       case "focus":
         setRemainingTime(focusTime * 60 * 1000);
+        break;
+      case "break":
+        setRemainingTime(breakTime * 60 * 1000);
         break;
       case "longBreak":
         setRemainingTime(longBreakTime * 60 * 1000);
@@ -95,20 +97,15 @@ export default function Timer() {
   };
 
   const resume = () => {
+    console.time();
     tickRef.current = setInterval(() => {
       setRemainingTime((prev) => prev - 1000);
-    }, 1);
+    }, 1000);
     setIsPause(false);
   };
 
   return (
-    <div
-      className={b("container", {
-        focus: mode === "focus",
-        break: mode === "break",
-        longBreak: mode === "longBreak",
-      })}
-    >
+    <div className={styles.container}>
       <div className={styles.timer}>
         <div className={styles.buttonContainer}>
           <button
@@ -161,10 +158,10 @@ export default function Timer() {
               pause();
             }}
           >
-            {isPause ? <HiPlay title="Start" /> : <HiPause title="Pause" />}
+            {isPause ? "Start" : "Pause"}
           </button>
-          <button className={styles.controlButton}>
-            <IoStop title="Stop" onClick={() => stop()} />
+          <button className={styles.controlButton} onClick={() => stop()}>
+            Stop
           </button>
         </div>
       </div>

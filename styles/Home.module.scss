@@ -3,30 +3,22 @@
   src: url(/assets/FiraCode-Regular.ttf);
 }
 
-$bg-focus: hsl(20, 100%, 10%);
-$bg-break: hsl(175, 40%, 10%);
-$bg-longBreak: hsl(200, 40%, 10%);
+$bg: white;
 $dark-text: hsl(0, 0, 20%);
 $darker-text: hsl(0, 0, 10%);
+$shadow: hsl(0, 0, 30);
+$shadow-hover: hsl(0, 0, 20);
+$shadow-pressed: hsl(0, 0, 10);
 
 .container {
   color: $dark-text;
+  background-color: $bg;
   display: flex;
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
   padding: 4rem 2rem;
   transition: background-color 0.5s;
-
-  &_focus {
-    background-color: $bg-focus;
-  }
-  &_break {
-    background-color: $bg-break;
-  }
-  &_longBreak {
-    background-color: $bg-longBreak;
-  }
 }
 
 .buttonContainer {
@@ -35,41 +27,59 @@ $darker-text: hsl(0, 0, 10%);
 }
 
 .button {
-  padding: 0.5rem;
+  padding: 0.5rem 1rem;
   background-color: transparent;
   border-radius: 0.5rem;
-  transition: background-color 200ms;
+  transition: background-color 0.2s, box-shadow 0.1s;
 
   &_active {
-    background-color: hsla(0, 0%, 10, 0.2);
+    box-shadow: inset 0 0 4px hsl(0, 0, 70%);
+    background-color: hsl(0, 0, 97);
   }
+}
+
+.timer {
+  position: relative;
+  padding: 1rem;
+  background-color: hsl(0, 0, 100);
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 2px 4px 6px $shadow;
+}
+
+.controlButtons {
+  display: flex;
+  gap: 1rem;
 }
 
 .controlButton {
   color: $dark-text;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
   display: inline-block;
-  width: 3rem;
-  height: 3rem;
   background-color: transparent;
-  font-size: 3rem;
+  box-shadow: 0 2px 6px $shadow;
+  transition: box-shadow 0.2s ease-out;
+
+  &:active {
+    box-shadow: 0 2px 3px $shadow-pressed;
+  }
+  &:hover {
+    box-shadow: 0 2px 3px $shadow-hover;
+  }
+
+  &:first-child {
+    min-width: 80px;
+  }
+  &:nth-child(2) {
+    color: hsl(0, 100, 40%);
+  }
 }
 
 .time {
   color: $darker-text;
   font-size: 4rem;
   font-family: "Fira Code", monospace;
-}
-
-.timer {
-  position: relative;
-  padding: 1rem;
-  background-color: hsla(0, 0%, 100%, 0.9);
-  border-radius: 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.controlButtons {
-  display: flex;
 }
