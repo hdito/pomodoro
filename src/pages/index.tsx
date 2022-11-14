@@ -41,39 +41,39 @@ export default function Timer() {
   return (
     <div className={styles.container}>
       <div className={styles.timer}>
-        <div className={styles.buttonContainer}>
+        <div className={styles["mode-button-container"]}>
           <button
-            className={b("button", { active: mode === "focus" })}
+            className={b("mode-button", { active: mode === "focus" })}
             onClick={() => dispatch(setFocusMode())}
           >
             Focus
           </button>
           <button
-            className={b("button", { active: mode === "break" })}
+            className={b("mode-button", { active: mode === "break" })}
             onClick={() => dispatch(setBreakMode())}
           >
             Break
           </button>
           <button
             onClick={() => dispatch(setLongBreakMode())}
-            className={b("button", { active: mode === "longBreak" })}
+            className={b("mode-button", { active: mode === "longBreak" })}
           >
             Long break
           </button>
           <Settings />
         </div>
         <div className={styles.time}>{format(remainingTime, "mm:ss")}</div>
-        <div className={styles.controlButtons}>
+        <div className={styles["control-buttons"]}>
           {isPause ? (
             <button
-              className={`${buttonStyles.button} ${buttonStyles.button_minWidth}`}
+              className={`${buttonStyles.button} ${buttonStyles["button_min-width"]}`}
               onClick={() => dispatch(start())}
             >
               Start
             </button>
           ) : (
             <button
-              className={`${buttonStyles.button} ${buttonStyles.button_minWidth}`}
+              className={`${buttonStyles.button} ${buttonStyles["button_min-width"]}`}
               onClick={() => dispatch(pause())}
             >
               Pause

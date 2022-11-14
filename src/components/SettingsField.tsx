@@ -13,7 +13,7 @@ export const SettingsField = ({
       <label className={styles.label} htmlFor={name}>
         {title}
       </label>
-      <div className={styles.inputContainer}>
+      <div className={styles["input-container"]}>
         <Field className={styles.input} type="number" name={name} id={name} />
       </div>
       <ErrorMessage name={name}>

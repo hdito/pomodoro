@@ -1,3 +1,5 @@
+$darker-text: hsl(0, 0, 10%);
+
 .settings {
   position: absolute;
   display: block;
@@ -22,9 +24,14 @@
   background-color: white;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1rem;
   border-radius: 1rem;
   height: fit-content;
+}
+
+.header {
+  color: $darker-text;
+  font-weight: bold;
 }
 
 .shade {
@@ -39,6 +46,16 @@
   justify-content: center;
 }
 
+.time-block {
+  border-top: 2px solid hsl(200, 20, 80);
+  border-bottom: 2px solid hsl(200, 20, 80);
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
 .label {
   display: block;
   font-weight: bold;
@@ -46,11 +63,12 @@
 
 .input {
   width: 6ch;
-  border: 2px solid black;
+  border: 0;
+  box-shadow: inset 0 0 4px hsl(200, 20, 50);
   border-radius: 0.25rem;
-  padding: 0.25rem;
+  padding: 0.5rem;
   font-size: 1rem;
-  background-color: white;
+  background-color: hsl(200, 20, 99);
 
   &:focus-visible {
     border-color: hsl(210, 50%, 50%);
@@ -61,13 +79,13 @@
   }
 }
 
-.inputContainer {
+.input-container {
   display: flex;
   align-items: flex-end;
   gap: 0.5rem;
 }
 
-.changeButton {
+.change-button {
   padding: calc(0.25rem + 2px) 0.5rem;
   border-radius: 0.25rem;
   background-color: hsl(0, 0%, 20%);

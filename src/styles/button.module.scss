@@ -12,7 +12,7 @@ $shadow-pressed: hsl(200, 20, 20);
   box-shadow: 0 2px 6px $shadow;
   transition: box-shadow 0.2s ease-out;
 
-  &_minWidth {
+  &_min-width {
     min-width: 80px;
   }
   &_stop {
