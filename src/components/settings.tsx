@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { IoSettingsSharp } from "react-icons/io5";
 import Switch from "react-switch";
-import styles from "../styles/Settings.module.scss";
-import { SettingsField } from "./SettingsField";
+import styles from "@/styles/Settings.module.scss";
+import { SettingsField } from "@/components/SettingsField";
 
 export const Settings = ({
   focusTime,

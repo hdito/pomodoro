@@ -1,8 +1,8 @@
 import { format } from "date-fns";
 import block from "module-clsx";
 import { useEffect, useRef, useState } from "react";
-import { Settings } from "../components/settings";
-import styles from "../styles/Home.module.scss";
+import { Settings } from "@/components/settings";
+import styles from "@/styles/Home.module.scss";
 
 export default function Timer() {
   const [isPause, setIsPause] = useState(true);
@@ -20,7 +20,6 @@ export default function Timer() {
   useEffect(() => {
     if (isPause) return;
     if (remainingTime > 0 || !tickRef.current) return;
-    console.timeLog();
     setMode((prevMode) => {
       switch (prevMode) {
         case "focus": {
@@ -93,7 +92,6 @@ export default function Timer() {
   };
 
   const resume = () => {
-    console.time();
     tickRef.current = setInterval(() => {
       setRemainingTime((prev) => prev - 1000);
     }, 1000);

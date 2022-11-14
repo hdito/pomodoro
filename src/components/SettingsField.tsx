@@ -1,6 +1,6 @@
 import { ErrorMessage, Field, Formik } from "formik";
 import { number, object } from "yup";
-import styles from "../styles/Settings.module.scss";
+import styles from "@/styles/Settings.module.scss";
 
 export const SettingsField = ({
   title,
