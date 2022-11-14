@@ -9,8 +9,8 @@ export type timerState = {
   longBreakTime: number;
   remainingTime: number;
   isAutostart: boolean;
-  currentIteration: number;
-  iterationsTillLongBreak: number;
+  currentCycle: number;
+  cyclesTillLongBreak: number;
 };
 
 const initialState: timerState = {
@@ -21,8 +21,8 @@ const initialState: timerState = {
   longBreakTime: 15,
   remainingTime: 25 * MS_IN_MINUTE,
   isAutostart: false,
-  currentIteration: 0,
-  iterationsTillLongBreak: 3,
+  currentCycle: 0,
+  cyclesTillLongBreak: 3,
 };
 
 const timerSlice = createSlice({
@@ -41,22 +41,22 @@ const timerSlice = createSlice({
       switch (state.mode) {
         case "focus":
           state.remainingTime =
-            state.currentIteration < state.iterationsTillLongBreak
+            state.currentCycle < state.cyclesTillLongBreak
               ? state.breakTime * MS_IN_MINUTE
               : state.longBreakTime * MS_IN_MINUTE;
           state.mode =
-            state.currentIteration < state.iterationsTillLongBreak
+            state.currentCycle < state.cyclesTillLongBreak
               ? "break"
               : "longBreak";
           break;
         case "break":
           state.mode = "focus";
-          state.currentIteration++;
+          state.currentCycle++;
           state.remainingTime = state.breakTime * MS_IN_MINUTE;
           break;
         case "longBreak":
           state.mode = "focus";
-          state.currentIteration = 0;
+          state.currentCycle = 0;
           state.remainingTime = state.longBreakTime * MS_IN_MINUTE;
           break;
       }
@@ -106,21 +106,24 @@ const timerSlice = createSlice({
     changeIsAutostart: (state, action: PayloadAction<boolean>) => {
       state.isAutostart = action.payload;
     },
+    changeCyclesTillLongBreak: (state, action: PayloadAction<number>) => {
+      state.cyclesTillLongBreak = action.payload;
+    },
     setFocusMode: (state) => {
       state.mode = "focus";
-      state.currentIteration = 0;
+      state.currentCycle = 0;
       state.isPause = true;
       state.remainingTime = state.focusTime * MS_IN_MINUTE;
     },
     setBreakMode: (state) => {
       state.mode = "break";
-      state.currentIteration = 0;
+      state.currentCycle = 0;
       state.isPause = true;
       state.remainingTime = state.breakTime * MS_IN_MINUTE;
     },
     setLongBreakMode: (state) => {
       state.mode = "longBreak";
-      state.currentIteration = 0;
+      state.currentCycle = 0;
       state.isPause = true;
       state.remainingTime = state.longBreakTime * MS_IN_MINUTE;
     },
@@ -138,6 +141,7 @@ export const {
   changeBreakTime,
   changeLongBreakTime,
   changeIsAutostart,
+  changeCyclesTillLongBreak,
   setFocusMode,
   setBreakMode,
   setLongBreakMode,

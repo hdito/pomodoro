@@ -1,25 +1,29 @@
-import { useState } from "react";
-import { IoSettingsSharp } from "react-icons/io5";
-import Switch from "react-switch";
-import styles from "@/styles/Settings.module.scss";
-import buttonStyles from "@/styles/button.module.scss";
 import { SettingsField } from "@/components/settingsField";
-import { useDispatch, useSelector } from "react-redux";
 import { rootState } from "@/features/store/store";
-import { ErrorMessage, Field, Form, Formik } from "formik";
-import { number, object } from "yup";
 import {
   changeBreakTime,
+  changeCyclesTillLongBreak,
   changeFocusTime,
   changeIsAutostart,
   changeLongBreakTime,
 } from "@/features/store/timerSlice";
+import buttonStyles from "@/styles/button.module.scss";
+import styles from "@/styles/Settings.module.scss";
+import { Form, Formik } from "formik";
+import { useState } from "react";
+import { IoSettingsSharp } from "react-icons/io5";
+import { useDispatch, useSelector } from "react-redux";
+import Switch from "react-switch";
+import { number, object } from "yup";
 
 export const Settings = () => {
   const focusTime = useSelector((store: rootState) => store.focusTime);
   const breakTime = useSelector((store: rootState) => store.breakTime);
   const longBreakTime = useSelector((store: rootState) => store.longBreakTime);
   const isAutostart = useSelector((store: rootState) => store.isAutostart);
+  const cyclesTillLongBreak = useSelector(
+    (store: rootState) => store.cyclesTillLongBreak
+  );
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
 
@@ -46,6 +50,7 @@ export const Settings = () => {
               breakTime,
               longBreakTime,
               isAutostart,
+              cyclesTillLongBreak,
             }}
             onSubmit={(values) => {
               if (values.breakTime !== breakTime)
@@ -56,6 +61,8 @@ export const Settings = () => {
                 dispatch(changeLongBreakTime(values.longBreakTime));
               if (values.isAutostart !== isAutostart)
                 dispatch(changeIsAutostart(values.isAutostart));
+              if (values.cyclesTillLongBreak !== cyclesTillLongBreak)
+                dispatch(changeCyclesTillLongBreak(values.cyclesTillLongBreak));
               setIsOpen(false);
             }}
             validationSchema={object({
@@ -77,12 +84,18 @@ export const Settings = () => {
                 .lessThan(60, "Can't be bigger than 1 hour")
                 .integer("Must be a natural number")
                 .required("Can't be empty"),
+              cyclesTillLongBreak: number()
+                .typeError("Must be a number")
+                .positive("Must be positive")
+                .lessThan(10, "You should rest sometimes")
+                .integer("Must be a natural number")
+                .required("Can't be empty"),
             })}
           >
             {({ values, setFieldValue }) => (
               <Form className={styles.popup}>
                 <h1 className={styles.header}>Settings</h1>
-                <div className={styles["time-block"]}>
+                <div className={styles["settings-block"]}>
                   <h2 className={styles.header}>Time (minutes)</h2>
                   {[
                     { name: "focusTime", title: "Focus" },
@@ -104,6 +117,12 @@ export const Settings = () => {
                   />
                   Autostart timers
                 </label>
+                <div className={styles["settings-block"]}>
+                  <SettingsField
+                    title="Cycles till the long break"
+                    name="cyclesTillLongBreak"
+                  />
+                </div>
                 <div className={styles.buttons}>
                   <button
                     className={`${buttonStyles.button} ${buttonStyles.button_save} ${buttonStyles.button_grow}`}
