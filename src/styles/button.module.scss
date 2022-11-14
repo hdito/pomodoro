@@ -1,0 +1,31 @@
+$dark-text: hsl(0, 0, 20%);
+$shadow: hsl(200, 20, 60);
+$shadow-hover: hsl(200, 20, 40);
+$shadow-pressed: hsl(200, 20, 20);
+
+.button {
+  color: $dark-text;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  display: inline-block;
+  background-color: transparent;
+  box-shadow: 0 2px 6px $shadow;
+  transition: box-shadow 0.2s ease-out;
+
+  &_minWidth {
+    min-width: 80px;
+  }
+  &_stop {
+    color: hsl(0, 100, 40);
+  }
+  &_save {
+    color: white;
+    background-color: hsl(200, 100, 40);
+  }
+  &:active {
+    box-shadow: 0 2px 3px $shadow-pressed;
+  }
+  &:hover {
+    box-shadow: 0 2px 3px $shadow-hover;
+  }
+}

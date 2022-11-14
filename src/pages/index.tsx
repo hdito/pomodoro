@@ -3,100 +3,40 @@ import block from "module-clsx";
 import { useEffect, useRef, useState } from "react";
 import { Settings } from "@/components/settings";
 import styles from "@/styles/Home.module.scss";
+import buttonStyles from "@/styles/button.module.scss";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setBreakMode,
+  setFocusMode,
+  setLongBreakMode,
+  stop,
+  pause,
+  start,
+  tick,
+} from "@/features/store/timerSlice";
+import { rootState } from "@/features/store/store";
+import { Timeout } from "@/utils/timeout";
 
 export default function Timer() {
-  const [isPause, setIsPause] = useState(true);
-  const [mode, setMode] = useState<"focus" | "break" | "longBreak">("focus");
-  const [iterations, setIterations] = useState(0);
-  const [focusTime, setFocusTime] = useState(1);
-  const [breakTime, setBreakTime] = useState(2);
-  const [longBreakTime, setLongBreakTime] = useState(4);
-  const [remainingTime, setRemainingTime] = useState(focusTime * 60 * 1000);
-  const [autoplay, setAutoplay] = useState(false);
-  const tickRef = useRef<NodeJS.Timeout | null>(null);
+  const isPause = useSelector((store: rootState) => store.isPause);
+  const mode = useSelector((store: rootState) => store.mode);
+  const remainingTime = useSelector((store: rootState) => store.remainingTime);
+  const tickRef = useRef<Timeout | null>(null);
 
-  const b = block(styles);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (isPause) return;
-    if (remainingTime > 0 || !tickRef.current) return;
-    setMode((prevMode) => {
-      switch (prevMode) {
-        case "focus": {
-          if (iterations >= 2) {
-            setRemainingTime(longBreakTime * 60 * 1000);
-            return "longBreak";
-          }
-          setRemainingTime(breakTime * 60 * 1000);
-          console.log("ugh");
-          setIterations((prev) => prev + 1);
-          return "break";
-        }
-        case "break":
-          setRemainingTime(focusTime * 60 * 1000);
-          return "focus";
-        case "longBreak":
-          setRemainingTime(focusTime * 60 * 1000);
-          setIterations(0);
-          return "focus";
-      }
-    });
-    if (autoplay) return;
-    setIsPause(true);
-    clearInterval(tickRef.current);
-  }, [remainingTime]);
-
-  const initFocus = () => {
-    setMode("focus");
-    setIsPause(true);
-    setRemainingTime(focusTime * 60 * 1000);
-    if (tickRef.current) clearInterval(tickRef.current);
-  };
-
-  const initBreak = () => {
-    setIterations(0);
-    setMode("break");
-    setIsPause(true);
-    setRemainingTime(breakTime * 60 * 1000);
-    if (tickRef.current) clearInterval(tickRef.current);
-  };
-
-  const initLongBreak = () => {
-    setMode("longBreak");
-    setIsPause(true);
-    setRemainingTime(longBreakTime * 60 * 1000);
-    if (tickRef.current) clearInterval(tickRef.current);
-  };
-
-  const pause = () => {
-    if (!tickRef.current) return;
-    clearInterval(tickRef.current);
-    setIsPause(true);
-  };
-
-  const stop = () => {
-    if (!tickRef.current) return;
-    clearInterval(tickRef.current);
-    setIsPause(true);
-    switch (mode) {
-      case "focus":
-        setRemainingTime(focusTime * 60 * 1000);
-        break;
-      case "break":
-        setRemainingTime(breakTime * 60 * 1000);
-        break;
-      case "longBreak":
-        setRemainingTime(longBreakTime * 60 * 1000);
-        break;
+    if (!isPause && !(tickRef.current instanceof Timeout))
+      tickRef.current = new Timeout(() => {
+        dispatch(tick());
+      }, 500);
+    if (isPause && tickRef.current instanceof Timeout) {
+      tickRef.current.clear();
+      tickRef.current = null;
     }
-  };
+  }, [isPause, dispatch]);
 
-  const resume = () => {
-    tickRef.current = setInterval(() => {
-      setRemainingTime((prev) => prev - 1000);
-    }, 1000);
-    setIsPause(false);
-  };
+  const b = block(styles);
 
   return (
     <div className={styles.container}>
@@ -104,57 +44,45 @@ export default function Timer() {
         <div className={styles.buttonContainer}>
           <button
             className={b("button", { active: mode === "focus" })}
-            onClick={() => initFocus()}
+            onClick={() => dispatch(setFocusMode())}
           >
             Focus
           </button>
           <button
             className={b("button", { active: mode === "break" })}
-            onClick={() => initBreak()}
+            onClick={() => dispatch(setBreakMode())}
           >
             Break
           </button>
           <button
-            onClick={() => initLongBreak()}
+            onClick={() => dispatch(setLongBreakMode())}
             className={b("button", { active: mode === "longBreak" })}
           >
             Long break
           </button>
-          <Settings
-            focusTime={focusTime}
-            breakTime={breakTime}
-            longBreakTime={longBreakTime}
-            autoplay={autoplay}
-            onChangeFocusTime={(focusTime) => {
-              setFocusTime(focusTime);
-              if (mode === "focus") stop();
-            }}
-            onChangeBreakTime={(breakTime) => {
-              setBreakTime(breakTime);
-              if (mode === "break") stop();
-            }}
-            onChangeLongBreakTime={(longBreakTime) => {
-              setLongBreakTime(longBreakTime);
-              if (mode === "longBreak") stop();
-            }}
-            onChangeAutoplay={setAutoplay}
-          />
+          <Settings />
         </div>
         <div className={styles.time}>{format(remainingTime, "mm:ss")}</div>
         <div className={styles.controlButtons}>
+          {isPause ? (
+            <button
+              className={`${buttonStyles.button} ${buttonStyles.button_minWidth}`}
+              onClick={() => dispatch(start())}
+            >
+              Start
+            </button>
+          ) : (
+            <button
+              className={`${buttonStyles.button} ${buttonStyles.button_minWidth}`}
+              onClick={() => dispatch(pause())}
+            >
+              Pause
+            </button>
+          )}
           <button
-            className={styles.controlButton}
-            onClick={() => {
-              if (isPause) {
-                resume();
-                return;
-              }
-              pause();
-            }}
+            className={`${buttonStyles.button} ${buttonStyles.button_stop}`}
+            onClick={() => dispatch(stop())}
           >
-            {isPause ? "Start" : "Pause"}
-          </button>
-          <button className={styles.controlButton} onClick={() => stop()}>
             Stop
           </button>
         </div>
