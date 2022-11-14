@@ -22,6 +22,9 @@ $shadow-pressed: hsl(200, 20, 20);
     color: white;
     background-color: hsl(200, 100, 40);
   }
+  &_grow {
+    flex: 1;
+  }
   &:active {
     box-shadow: 0 2px 3px $shadow-pressed;
   }

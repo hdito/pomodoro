@@ -11,7 +11,7 @@ import { number, object } from "yup";
 import {
   changeBreakTime,
   changeFocusTime,
-  changeIsAutoplay,
+  changeIsAutostart,
   changeLongBreakTime,
 } from "@/features/store/timerSlice";
 
@@ -19,7 +19,7 @@ export const Settings = () => {
   const focusTime = useSelector((store: rootState) => store.focusTime);
   const breakTime = useSelector((store: rootState) => store.breakTime);
   const longBreakTime = useSelector((store: rootState) => store.longBreakTime);
-  const isAutoplay = useSelector((store: rootState) => store.isAutoplay);
+  const isAutostart = useSelector((store: rootState) => store.isAutostart);
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
 
@@ -45,7 +45,7 @@ export const Settings = () => {
               focusTime,
               breakTime,
               longBreakTime,
-              isAutoplay,
+              isAutostart,
             }}
             onSubmit={(values) => {
               if (values.breakTime !== breakTime)
@@ -54,8 +54,8 @@ export const Settings = () => {
                 dispatch(changeFocusTime(values.focusTime));
               if (values.longBreakTime !== longBreakTime)
                 dispatch(changeLongBreakTime(values.longBreakTime));
-              if (values.isAutoplay !== isAutoplay)
-                dispatch(changeIsAutoplay(values.isAutoplay));
+              if (values.isAutostart !== isAutostart)
+                dispatch(changeIsAutostart(values.isAutostart));
               setIsOpen(false);
             }}
             validationSchema={object({
@@ -94,24 +94,26 @@ export const Settings = () => {
                 </div>
                 <label className={styles.switch}>
                   <Switch
-                    checked={values.isAutoplay}
-                    name="isAutoplay"
+                    checked={values.isAutostart}
+                    name="isAutostart"
                     checkedIcon={false}
                     uncheckedIcon={false}
-                    onChange={(checked) => setFieldValue("isAutoplay", checked)}
+                    onChange={(checked) =>
+                      setFieldValue("isAutostart", checked)
+                    }
                   />
-                  Autoplay
+                  Autostart timers
                 </label>
                 <div className={styles.buttons}>
                   <button
-                    className={`${buttonStyles.button} ${buttonStyles.button_save}`}
+                    className={`${buttonStyles.button} ${buttonStyles.button_save} ${buttonStyles.button_grow}`}
                     type="submit"
                   >
                     Save
                   </button>
                   <button
                     onClick={() => setIsOpen(false)}
-                    className={buttonStyles.button}
+                    className={`${buttonStyles.button} ${buttonStyles.button_grow}`}
                     type="button"
                   >
                     Cancel

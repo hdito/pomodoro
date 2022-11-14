@@ -8,7 +8,7 @@ export type timerState = {
   breakTime: number;
   longBreakTime: number;
   remainingTime: number;
-  isAutoplay: boolean;
+  isAutostart: boolean;
   currentIteration: number;
   iterationsTillLongBreak: number;
 };
@@ -20,7 +20,7 @@ const initialState: timerState = {
   breakTime: 5,
   longBreakTime: 15,
   remainingTime: 25 * MS_IN_MINUTE,
-  isAutoplay: false,
+  isAutostart: false,
   currentIteration: 0,
   iterationsTillLongBreak: 3,
 };
@@ -60,7 +60,7 @@ const timerSlice = createSlice({
           state.remainingTime = state.longBreakTime * MS_IN_MINUTE;
           break;
       }
-      if (!state.isAutoplay) state.isPause = true;
+      if (!state.isAutostart) state.isPause = true;
     },
     stop: (state) => {
       state.isPause = true;
@@ -103,8 +103,8 @@ const timerSlice = createSlice({
         state.remainingTime = action.payload * MS_IN_MINUTE;
       state.longBreakTime = action.payload;
     },
-    changeIsAutoplay: (state, action: PayloadAction<boolean>) => {
-      state.isAutoplay = action.payload;
+    changeIsAutostart: (state, action: PayloadAction<boolean>) => {
+      state.isAutostart = action.payload;
     },
     setFocusMode: (state) => {
       state.mode = "focus";
@@ -137,7 +137,7 @@ export const {
   changeFocusTime,
   changeBreakTime,
   changeLongBreakTime,
-  changeIsAutoplay,
+  changeIsAutostart,
   setFocusMode,
   setBreakMode,
   setLongBreakMode,
