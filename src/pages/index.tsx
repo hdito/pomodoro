@@ -2,7 +2,7 @@ import { format } from "date-fns";
 import block from "module-clsx";
 import { useEffect, useRef, useState } from "react";
 import { Settings } from "@/components/settings";
-import styles from "@/styles/Home.module.scss";
+import styles from "@/styles/Timer.module.scss";
 import buttonStyles from "@/styles/button.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -16,8 +16,15 @@ import {
 } from "@/features/store/timerSlice";
 import { rootState } from "@/features/store/store";
 import { Timeout } from "@/utils/timeout";
+import { Fira_Code } from "@next/font/google";
 
-export default function Timer() {
+const FiraCode = Fira_Code({
+  fallback: ["monospace"],
+  weight: "400",
+  subsets: ["latin"],
+});
+
+export function Timer() {
   const isPause = useSelector((store: rootState) => store.isPause);
   const mode = useSelector((store: rootState) => store.mode);
   const remainingTime = useSelector((store: rootState) => store.remainingTime);
@@ -62,25 +69,27 @@ export default function Timer() {
           </button>
           <Settings />
         </div>
-        <div className={styles.time}>{format(remainingTime, "mm:ss")}</div>
+        <h1 className={`${styles.time} ${FiraCode.className}`}>
+          {format(remainingTime, "mm:ss")}
+        </h1>
         <div className={styles["control-buttons"]}>
           {isPause ? (
             <button
-              className={`${buttonStyles.button} ${buttonStyles["button_min-width"]}`}
+              className={`${buttonStyles.button} ${buttonStyles.button_grow}`}
               onClick={() => dispatch(start())}
             >
               Start
             </button>
           ) : (
             <button
-              className={`${buttonStyles.button} ${buttonStyles["button_min-width"]}`}
+              className={`${buttonStyles.button} ${buttonStyles.button_grow}`}
               onClick={() => dispatch(pause())}
             >
               Pause
             </button>
           )}
           <button
-            className={`${buttonStyles.button} ${buttonStyles.button_stop}`}
+            className={`${buttonStyles.button} ${buttonStyles.button_stop} ${buttonStyles.button_grow}`}
             onClick={() => dispatch(stop())}
           >
             Stop
@@ -90,3 +99,5 @@ export default function Timer() {
     </div>
   );
 }
+
+export default Timer;
