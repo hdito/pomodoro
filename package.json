@@ -6,18 +6,26 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "vitest"
   },
   "dependencies": {
-    "@next/font": "^13.0.3",
     "@reduxjs/toolkit": "^1.9.0",
+    "@testing-library/dom": "^8.19.0",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^14.4.3",
+    "@types/jest": "^29.2.3",
     "@types/node": "18.11.9",
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.8",
+    "@types/testing-library__jest-dom": "^5.14.5",
+    "@vitejs/plugin-react": "^2.2.0",
     "date-fns": "^2.29.3",
     "eslint": "8.27.0",
     "eslint-config-next": "13.0.3",
     "formik": "^2.2.9",
+    "jsdom": "^20.0.2",
     "module-clsx": "^1.0.0",
     "next": "13.0.3",
     "react": "18.2.0",
@@ -27,6 +35,10 @@
     "react-switch": "^7.0.0",
     "sass": "^1.56.1",
     "typescript": "4.8.4",
-    "yup": "^0.32.11"
+    "vite": "^3.2.4",
+    "vite-tsconfig-paths": "^3.5.2",
+    "vitest": "^0.25.2",
+    "yup": "^0.32.11",
+    "@vitest/coverage-c8": "^0.25.2"
   }
 }

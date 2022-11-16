@@ -16,13 +16,6 @@ import {
 } from "@/features/store/timerSlice";
 import { rootState } from "@/features/store/store";
 import { Timeout } from "@/utils/timeout";
-import { Fira_Code } from "@next/font/google";
-
-const FiraCode = Fira_Code({
-  fallback: ["monospace"],
-  weight: "400",
-  subsets: ["latin"],
-});
 
 export function Timer() {
   const isPause = useSelector((store: rootState) => store.isPause);
@@ -36,7 +29,7 @@ export function Timer() {
     if (!isPause && !(tickRef.current instanceof Timeout))
       tickRef.current = new Timeout(() => {
         dispatch(tick());
-      }, 500);
+      }, 1000);
     if (isPause && tickRef.current instanceof Timeout) {
       tickRef.current.clear();
       tickRef.current = null;
@@ -69,9 +62,7 @@ export function Timer() {
           </button>
           <Settings />
         </div>
-        <h1 className={`${styles.time} ${FiraCode.className}`}>
-          {format(remainingTime, "mm:ss")}
-        </h1>
+        <h1 className={`${styles.time}`}>{format(remainingTime, "mm:ss")}</h1>
         <div className={styles["control-buttons"]}>
           {isPause ? (
             <button
