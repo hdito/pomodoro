@@ -9,7 +9,7 @@ $shadow-pressed: hsl(200, 20, 20);
   border-radius: 0.5rem;
   display: inline-block;
   background-color: transparent;
-  box-shadow: 0 2px 6px $shadow;
+  box-shadow: 0 2px 3px $shadow;
   transition: box-shadow 0.2s ease-out;
 
   &_stop {

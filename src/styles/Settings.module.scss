@@ -1,20 +1,24 @@
 $darker-text: hsl(0, 0, 10%);
+$shadow: hsl(200, 20, 60);
+$shadow-hover: hsl(200, 20, 40);
+$shadow-pressed: hsl(200, 20, 20);
 
-.settings {
+.settings-button {
   position: absolute;
-  display: block;
-  height: 2rem;
-  width: 2rem;
-  padding: 0;
   right: -3rem;
   font-size: 2rem;
-  border: 0;
-  background-color: transparent;
-  transition: rotate 150ms;
   cursor: pointer;
-
+  fill: hsl(200, 40%, 20%);
+  background-color: white;
+  padding: 0.25rem;
+  border-radius: 50%;
+  display: flex;
+  box-shadow: 0 2px 3px $shadow;
+  &:active {
+    box-shadow: 0 2px 3px $shadow-pressed;
+  }
   &:hover {
-    rotate: 30deg;
+    box-shadow: 0 2px 3px $shadow-hover;
   }
 }
 
