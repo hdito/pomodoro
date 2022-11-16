@@ -9,16 +9,22 @@ export const SettingsField = ({
   name: string;
 }) => {
   return (
-    <div className={styles.field}>
-      <label className={styles.label} htmlFor={name}>
-        {title}
-      </label>
-      <div className={styles["input-container"]}>
-        <Field className={styles.input} type="number" name={name} id={name} />
-      </div>
+    <label id={`field-${name}`} className={styles.label} htmlFor={name}>
+      {title}
+      <Field
+        aria-errormessage={`error-${name}`}
+        className={styles.input}
+        type="number"
+        name={name}
+        id={name}
+      />
       <ErrorMessage name={name}>
-        {(msg) => <div className={styles.error}>{msg}</div>}
+        {(msg) => (
+          <div role="alert" id={`error-${name}`} className={styles.error}>
+            {msg}
+          </div>
+        )}
       </ErrorMessage>
-    </div>
+    </label>
   );
 };

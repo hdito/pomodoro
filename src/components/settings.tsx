@@ -72,19 +72,19 @@ export const Settings = () => {
               focusTime: number()
                 .typeError("Must be a number")
                 .positive("Must be positive")
-                .lessThan(60, "Can't be bigger than 1 hour")
+                .lessThan(60, "Can't be bigger than 59 minutes")
                 .integer("Must be a natural number")
                 .required("Can't be empty"),
               breakTime: number()
                 .typeError("Must be a number")
                 .positive("Must be positive")
-                .lessThan(60, "Can't be bigger than 1 hour")
+                .lessThan(61, "Can't be bigger than 59 minutes")
                 .integer("Must be a natural number")
                 .required("Can't be empty"),
               longBreakTime: number()
                 .typeError("Must be a number")
                 .positive("Must be positive")
-                .lessThan(60, "Can't be bigger than 1 hour")
+                .lessThan(60, "Can't be bigger than 59 minutes")
                 .integer("Must be a natural number")
                 .required("Can't be empty"),
               cyclesTillLongBreak: number()
@@ -108,10 +108,11 @@ export const Settings = () => {
                     <SettingsField key={name} name={name} title={title} />
                   ))}
                 </div>
-                <label className={styles.switch}>
+                <label htmlFor="autostart" className={styles.switch}>
                   <Switch
                     checked={values.isAutostart}
                     name="isAutostart"
+                    id="autostart"
                     checkedIcon={false}
                     uncheckedIcon={false}
                     onChange={(checked) =>
