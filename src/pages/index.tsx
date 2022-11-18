@@ -1,26 +1,24 @@
-import { format } from "date-fns";
-import block from "module-clsx";
-import { useEffect, useRef, useState } from "react";
 import { Settings } from "@/components/settings";
-import styles from "@/styles/Timer.module.scss";
-import buttonStyles from "@/styles/button.module.scss";
-import { useDispatch, useSelector } from "react-redux";
 import {
+  pause,
+  selectTimerValues,
   setBreakMode,
   setFocusMode,
   setLongBreakMode,
-  stop,
-  pause,
   start,
+  stop,
   tick,
 } from "@/features/store/timerSlice";
-import { rootState } from "@/features/store/store";
+import buttonStyles from "@/styles/button.module.scss";
+import styles from "@/styles/Timer.module.scss";
 import { Timeout } from "@/utils/timeout";
+import { format } from "date-fns";
+import block from "module-clsx";
+import { useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 export function Timer() {
-  const isPause = useSelector((store: rootState) => store.isPause);
-  const mode = useSelector((store: rootState) => store.mode);
-  const remainingTime = useSelector((store: rootState) => store.remainingTime);
+  const { isPause, mode, remainingTime } = useSelector(selectTimerValues);
   const tickRef = useRef<Timeout | null>(null);
 
   const dispatch = useDispatch();

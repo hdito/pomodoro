@@ -1,11 +1,11 @@
 import { SettingsField } from "@/components/settingsField";
-import { rootState } from "@/features/store/store";
 import {
   changeBreakTime,
   changeCyclesTillLongBreak,
   changeFocusTime,
   changeIsAutostart,
   changeLongBreakTime,
+  selectSettingsValues,
 } from "@/features/store/timerSlice";
 import buttonStyles from "@/styles/button.module.scss";
 import styles from "@/styles/Settings.module.scss";
@@ -17,13 +17,13 @@ import Switch from "react-switch";
 import { number, object } from "yup";
 
 export const Settings = () => {
-  const focusTime = useSelector((store: rootState) => store.focusTime);
-  const breakTime = useSelector((store: rootState) => store.breakTime);
-  const longBreakTime = useSelector((store: rootState) => store.longBreakTime);
-  const isAutostart = useSelector((store: rootState) => store.isAutostart);
-  const cyclesTillLongBreak = useSelector(
-    (store: rootState) => store.cyclesTillLongBreak
-  );
+  const {
+    focusTime,
+    breakTime,
+    longBreakTime,
+    isAutostart,
+    cyclesTillLongBreak,
+  } = useSelector(selectSettingsValues);
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
 

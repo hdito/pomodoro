@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { MS_IN_MINUTE, MS_IN_SECOND } from "./../../utils/constants";
+import { MS_IN_MINUTE, MS_IN_SECOND } from "@/utils/constants";
+import { rootState } from "./store";
 
 export type timerState = {
   isPause: boolean;
@@ -146,3 +147,21 @@ export const {
   setBreakMode,
   setLongBreakMode,
 } = timerSlice.actions;
+
+export const selectSettingsValues = (state: rootState) => {
+  return {
+    focusTime: state.focusTime,
+    breakTime: state.breakTime,
+    longBreakTime: state.longBreakTime,
+    isAutostart: state.isAutostart,
+    cyclesTillLongBreak: state.cyclesTillLongBreak,
+  };
+};
+
+export const selectTimerValues = (state: rootState) => {
+  return {
+    isPause: state.isPause,
+    mode: state.mode,
+    remainingTime: state.remainingTime,
+  };
+};
