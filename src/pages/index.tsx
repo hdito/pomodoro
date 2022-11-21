@@ -43,24 +43,29 @@ export function Timer() {
           <button
             className={b("mode-button", { active: mode === "focus" })}
             onClick={() => dispatch(setFocusMode())}
+            aria-current={mode === "focus" ? "step" : "false"}
           >
             Focus
           </button>
           <button
             className={b("mode-button", { active: mode === "break" })}
             onClick={() => dispatch(setBreakMode())}
+            aria-current={mode === "break" ? "step" : "false"}
           >
             Break
           </button>
           <button
             onClick={() => dispatch(setLongBreakMode())}
             className={b("mode-button", { active: mode === "longBreak" })}
+            aria-current={mode === "longBreak" ? "step" : "false"}
           >
             Long break
           </button>
           <Settings />
         </div>
-        <h1 className={`${styles.time}`}>{format(remainingTime, "mm:ss")}</h1>
+        <h1 role="timer" className={`${styles.time}`}>
+          {format(remainingTime, "mm:ss")}
+        </h1>
         <div className={styles["control-buttons"]}>
           {isPause ? (
             <button
