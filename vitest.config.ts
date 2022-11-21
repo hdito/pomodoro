@@ -6,6 +6,5 @@ export default defineConfig({
   plugins: [react(), viteTsConfigPaths()],
   test: {
     environment: "jsdom",
-    globals: true,
   },
 });
