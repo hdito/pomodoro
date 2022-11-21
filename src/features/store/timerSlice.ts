@@ -110,23 +110,24 @@ const timerSlice = createSlice({
     changeCyclesTillLongBreak: (state, action: PayloadAction<number>) => {
       state.cyclesTillLongBreak = action.payload;
     },
-    setFocusMode: (state) => {
-      state.mode = "focus";
-      state.currentCycle = 0;
+    setMode: (
+      state,
+      action: PayloadAction<"focus" | "break" | "longBreak">
+    ) => {
+      state.mode = action.payload;
+      state.currentCycle = 1;
       state.isPause = true;
-      state.remainingTime = state.focusTime * MS_IN_MINUTE;
-    },
-    setBreakMode: (state) => {
-      state.mode = "break";
-      state.currentCycle = 0;
-      state.isPause = true;
-      state.remainingTime = state.breakTime * MS_IN_MINUTE;
-    },
-    setLongBreakMode: (state) => {
-      state.mode = "longBreak";
-      state.currentCycle = 0;
-      state.isPause = true;
-      state.remainingTime = state.longBreakTime * MS_IN_MINUTE;
+      switch (action.payload) {
+        case "focus":
+          state.remainingTime = state.focusTime * MS_IN_MINUTE;
+          break;
+        case "break":
+          state.remainingTime = state.breakTime * MS_IN_MINUTE;
+          break;
+        case "longBreak":
+          state.remainingTime = state.longBreakTime * MS_IN_MINUTE;
+          break;
+      }
     },
   },
 });
@@ -143,9 +144,7 @@ export const {
   changeLongBreakTime,
   changeIsAutostart,
   changeCyclesTillLongBreak,
-  setFocusMode,
-  setBreakMode,
-  setLongBreakMode,
+  setMode,
 } = timerSlice.actions;
 
 export const selectSettingsValues = (state: rootState) => {

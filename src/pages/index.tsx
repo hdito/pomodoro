@@ -2,9 +2,7 @@ import { Settings } from "@/components/settings";
 import {
   pause,
   selectTimerValues,
-  setBreakMode,
-  setFocusMode,
-  setLongBreakMode,
+  setMode,
   start,
   stop,
   tick,
@@ -42,20 +40,20 @@ export function Timer() {
         <div className={styles["mode-button-container"]}>
           <button
             className={b("mode-button", { active: mode === "focus" })}
-            onClick={() => dispatch(setFocusMode())}
+            onClick={() => dispatch(setMode("focus"))}
             aria-current={mode === "focus" ? "step" : "false"}
           >
             Focus
           </button>
           <button
             className={b("mode-button", { active: mode === "break" })}
-            onClick={() => dispatch(setBreakMode())}
+            onClick={() => dispatch(setMode("break"))}
             aria-current={mode === "break" ? "step" : "false"}
           >
             Break
           </button>
           <button
-            onClick={() => dispatch(setLongBreakMode())}
+            onClick={() => dispatch(setMode("longBreak"))}
             className={b("mode-button", { active: mode === "longBreak" })}
             aria-current={mode === "longBreak" ? "step" : "false"}
           >
