@@ -1,4 +1,9 @@
-import { tick } from "@/features/store/timerSlice";
+import {
+  changeSettings,
+  setMode,
+  start,
+  tick,
+} from "@/features/store/timerSlice";
 import { MS_IN_MINUTE } from "@/utils/constants";
 import {
   getCustomTimerState,
@@ -64,6 +69,62 @@ describe("Timer reducer", () => {
           mode: "focus",
           remainingTime: 25 * MS_IN_MINUTE,
           currentCycle: 1,
+        })
+      );
+    });
+  });
+  describe("Change Settings action", () => {
+    it("If user changes time settings of stopped timer it shows updated time", () => {
+      const store = getCustomTimerStore({});
+      store.dispatch(changeSettings({ focusTime: 1 }));
+      expect(store.getState()).toEqual(
+        getCustomTimerState({ focusTime: 1, remainingTime: 1 * MS_IN_MINUTE })
+      );
+
+      store.dispatch(setMode("break"));
+      store.dispatch(changeSettings({ breakTime: 2 }));
+      expect(store.getState()).toEqual(
+        getCustomTimerState({
+          mode: "break",
+          focusTime: 1,
+          breakTime: 2,
+          remainingTime: 2 * MS_IN_MINUTE,
+        })
+      );
+
+      store.dispatch(setMode("longBreak"));
+      store.dispatch(changeSettings({ longBreakTime: 5 }));
+      expect(store.getState()).toEqual(
+        getCustomTimerState({
+          mode: "longBreak",
+          focusTime: 1,
+          breakTime: 2,
+          longBreakTime: 5,
+          remainingTime: 5 * MS_IN_MINUTE,
+        })
+      );
+    });
+
+    it("If user changes settings of ticking timer it updates settings but remaining time stays intact", () => {
+      const store = getCustomTimerStore({});
+      store.dispatch(start());
+      store.dispatch(
+        changeSettings({
+          focusTime: 5,
+          breakTime: 6,
+          longBreakTime: 7,
+          isAutostart: true,
+          cyclesTillLongBreak: 5,
+        })
+      );
+      expect(store.getState()).toEqual(
+        getCustomTimerState({
+          focusTime: 5,
+          breakTime: 6,
+          longBreakTime: 7,
+          isAutostart: true,
+          cyclesTillLongBreak: 5,
+          isPause: false,
         })
       );
     });

@@ -77,38 +77,38 @@ const timerSlice = createSlice({
           break;
       }
     },
-    changeFocusTime: (state, action: PayloadAction<number>) => {
-      if (
-        state.isPause &&
-        state.mode === "focus" &&
-        state.remainingTime === state.focusTime * MS_IN_MINUTE
-      )
-        state.remainingTime = action.payload * MS_IN_MINUTE;
-      state.focusTime = action.payload;
-    },
-    changeBreakTime: (state, action: PayloadAction<number>) => {
-      if (
-        state.isPause &&
-        state.mode === "break" &&
-        state.remainingTime === state.breakTime * MS_IN_MINUTE
-      )
-        state.remainingTime = action.payload * MS_IN_MINUTE;
-      state.breakTime = action.payload;
-    },
-    changeLongBreakTime: (state, action: PayloadAction<number>) => {
-      if (
-        state.isPause &&
-        state.mode === "longBreak" &&
-        state.remainingTime === state.longBreakTime * MS_IN_MINUTE
-      )
-        state.remainingTime = action.payload * MS_IN_MINUTE;
-      state.longBreakTime = action.payload;
-    },
-    changeIsAutostart: (state, action: PayloadAction<boolean>) => {
-      state.isAutostart = action.payload;
-    },
-    changeCyclesTillLongBreak: (state, action: PayloadAction<number>) => {
-      state.cyclesTillLongBreak = action.payload;
+    changeSettings: (
+      state,
+      action: PayloadAction<{
+        focusTime?: number;
+        breakTime?: number;
+        longBreakTime?: number;
+        isAutostart?: boolean;
+        cyclesTillLongBreak?: number;
+      }>
+    ) => {
+      Object.entries(action.payload).map(([key, value]) => {
+        if (
+          (key === "focusTime" ||
+            key === "breakTime" ||
+            key === "longBreakTime") &&
+          typeof value === "number"
+        ) {
+          if (
+            state.isPause &&
+            state.mode === key.replace(/Time/, "") &&
+            state.remainingTime === state[key] * MS_IN_MINUTE
+          ) {
+            state.remainingTime = value * MS_IN_MINUTE;
+          }
+          state[key] = value;
+        } else {
+          if (key === "isAutostart" && typeof value === "boolean")
+            state[key] = value;
+          else if (key === "cyclesTillLongBreak" && typeof value === "number")
+            state[key] = value;
+        }
+      });
     },
     setMode: (
       state,
@@ -134,18 +134,8 @@ const timerSlice = createSlice({
 
 export default timerSlice.reducer;
 
-export const {
-  start,
-  pause,
-  tick,
-  stop,
-  changeFocusTime,
-  changeBreakTime,
-  changeLongBreakTime,
-  changeIsAutostart,
-  changeCyclesTillLongBreak,
-  setMode,
-} = timerSlice.actions;
+export const { start, pause, tick, stop, changeSettings, setMode } =
+  timerSlice.actions;
 
 export const selectSettingsValues = (state: rootState) => {
   return {

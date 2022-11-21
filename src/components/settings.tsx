@@ -1,10 +1,6 @@
 import { SettingsField } from "@/components/settingsField";
 import {
-  changeBreakTime,
-  changeCyclesTillLongBreak,
-  changeFocusTime,
-  changeIsAutostart,
-  changeLongBreakTime,
+  changeSettings,
   selectSettingsValues,
 } from "@/features/store/timerSlice";
 import buttonStyles from "@/styles/button.module.scss";
@@ -17,13 +13,15 @@ import Switch from "react-switch";
 import { number, object } from "yup";
 
 export const Settings = () => {
+  const settingValues = useSelector(selectSettingsValues);
   const {
     focusTime,
     breakTime,
     longBreakTime,
     isAutostart,
     cyclesTillLongBreak,
-  } = useSelector(selectSettingsValues);
+  } = settingValues;
+
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
 
@@ -56,16 +54,20 @@ export const Settings = () => {
               cyclesTillLongBreak,
             }}
             onSubmit={(values) => {
-              if (values.breakTime !== breakTime)
-                dispatch(changeBreakTime(values.breakTime));
-              if (values.focusTime !== focusTime)
-                dispatch(changeFocusTime(values.focusTime));
-              if (values.longBreakTime !== longBreakTime)
-                dispatch(changeLongBreakTime(values.longBreakTime));
-              if (values.isAutostart !== isAutostart)
-                dispatch(changeIsAutostart(values.isAutostart));
-              if (values.cyclesTillLongBreak !== cyclesTillLongBreak)
-                dispatch(changeCyclesTillLongBreak(values.cyclesTillLongBreak));
+              const updatedSettings: { [key: string]: number | boolean } = {};
+              Object.entries(values).map(([key, value]) => {
+                if (
+                  (key === "breakTime" ||
+                    key === "longBreakTime" ||
+                    key === "isAutostart" ||
+                    key === "cyclesTillLongBreak") &&
+                  settingValues[key] !== values[key]
+                ) {
+                  updatedSettings[key] = value;
+                }
+              });
+
+              dispatch(changeSettings(updatedSettings));
               setIsOpen(false);
             }}
             validationSchema={object({

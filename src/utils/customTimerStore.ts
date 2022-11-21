@@ -1,3 +1,4 @@
+import { MS_IN_MINUTE } from "./constants";
 import timerReducer from "@/features/store/timerSlice";
 import { customTimerState } from "@/types/customTimerState";
 import { configureStore } from "@reduxjs/toolkit";
@@ -8,7 +9,7 @@ export const getCustomTimerStore = ({
   focusTime = 25,
   breakTime = 5,
   longBreakTime = 15,
-  remainingTime = 5000,
+  remainingTime = 25 * MS_IN_MINUTE,
   isAutostart = false,
   currentCycle = 1,
   cyclesTillLongBreak = 3,
@@ -34,7 +35,7 @@ export const getCustomTimerState = ({
   focusTime = 25,
   breakTime = 5,
   longBreakTime = 15,
-  remainingTime = 5000,
+  remainingTime = 25 * MS_IN_MINUTE,
   isAutostart = false,
   currentCycle = 1,
   cyclesTillLongBreak = 3,
