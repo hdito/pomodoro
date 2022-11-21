@@ -22,7 +22,7 @@ const initialState: timerState = {
   longBreakTime: 15,
   remainingTime: 25 * MS_IN_MINUTE,
   isAutostart: false,
-  currentCycle: 0,
+  currentCycle: 1,
   cyclesTillLongBreak: 3,
 };
 
@@ -53,12 +53,12 @@ const timerSlice = createSlice({
         case "break":
           state.mode = "focus";
           state.currentCycle++;
-          state.remainingTime = state.breakTime * MS_IN_MINUTE;
+          state.remainingTime = state.focusTime * MS_IN_MINUTE;
           break;
         case "longBreak":
           state.mode = "focus";
-          state.currentCycle = 0;
-          state.remainingTime = state.longBreakTime * MS_IN_MINUTE;
+          state.currentCycle = 1;
+          state.remainingTime = state.focusTime * MS_IN_MINUTE;
           break;
       }
       if (!state.isAutostart) state.isPause = true;
