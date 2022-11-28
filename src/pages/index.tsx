@@ -10,6 +10,7 @@ import {
 import buttonStyles from "@/styles/button.module.scss";
 import styles from "@/styles/Timer.module.scss";
 import { Timeout } from "@/utils/timeout";
+import { useAlarm } from "@/utils/useAlarm";
 import { format } from "date-fns";
 import block from "module-clsx";
 import { useEffect, useRef } from "react";
@@ -18,6 +19,7 @@ import { useDispatch, useSelector } from "react-redux";
 export function Timer() {
   const { isPause, mode, remainingTime } = useSelector(selectTimerValues);
   const tickRef = useRef<Timeout | null>(null);
+  const playAlarm = useAlarm();
 
   const dispatch = useDispatch();
 
@@ -31,6 +33,11 @@ export function Timer() {
       tickRef.current = null;
     }
   }, [isPause, dispatch]);
+
+  useEffect(() => {
+    if (remainingTime > 0) return;
+    playAlarm();
+  }, [remainingTime, playAlarm]);
 
   const b = block(styles);
 

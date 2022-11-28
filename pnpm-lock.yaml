@@ -29,6 +29,7 @@ specifiers:
   react-switch: ^7.0.0
   sass: ^1.56.1
   typescript: 4.8.4
+  use-sound: ^4.0.1
   vite: ^3.2.4
   vite-tsconfig-paths: ^3.5.2
   vitest: ^0.25.2
@@ -63,6 +64,7 @@ dependencies:
   react-switch: 7.0.0_biqbaboplfbrettd7655fr4n2y
   sass: 1.56.1
   typescript: 4.8.4
+  use-sound: 4.0.1_react@18.2.0
   vite: 3.2.4_ajklay5k626t46b6fyghkbup3i
   vite-tsconfig-paths: 3.5.2_vite@3.2.4
   vitest: 0.25.2_jsdom@20.0.2+sass@1.56.1
@@ -2799,6 +2801,10 @@ packages:
       react-is: 16.13.1
     dev: false
 
+  /howler/2.2.3:
+    resolution: {integrity: sha512-QM0FFkw0LRX1PR8pNzJVAY25JhIWvbKMBFM4gqk+QdV+kPXOhleWGCB6AiAF/goGjIHK2e/nIElplvjQwhr0jg==}
+    dev: false
+
   /html-encoding-sniffer/3.0.0:
     resolution: {integrity: sha512-oWv4T4yJ52iKrufjnyZPkrN0CH3QnrUqdB6In1g5Fe1mia8GmF36gnfNySxoZtxD5+NmYw1EElVXiBk93UeskA==}
     engines: {node: '>=12'}
@@ -4620,6 +4626,15 @@ packages:
     dependencies:
       querystringify: 2.2.0
       requires-port: 1.0.0
+    dev: false
+
+  /use-sound/4.0.1_react@18.2.0:
+    resolution: {integrity: sha512-hykJ86kNcu6y/FzlSHcQxhjSGMslZx2WlfLpZNoPbvueakv4OF3xPxEtGV2YmculrIaH0tPp9LtG4jgy17xMWg==}
+    peerDependencies:
+      react: '>=16.8'
+    dependencies:
+      howler: 2.2.3
+      react: 18.2.0
     dev: false
 
   /use-sync-external-store/1.2.0_react@18.2.0:

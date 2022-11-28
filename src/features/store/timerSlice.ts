@@ -38,7 +38,7 @@ const timerSlice = createSlice({
     },
     tick: (state) => {
       state.remainingTime -= MS_IN_SECOND;
-      if (state.remainingTime > 0) return;
+      if (state.remainingTime >= 0) return;
       switch (state.mode) {
         case "focus":
           state.remainingTime =
