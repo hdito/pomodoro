@@ -1,21 +1,18 @@
-$dark-text: hsl(0, 0, 20%);
-$shadow: hsl(200, 20, 60);
-$shadow-hover: hsl(200, 20, 40);
-$shadow-pressed: hsl(200, 20, 20);
+@use "src/styles/variables" as var;
 
 .button {
-  color: $dark-text;
+  color: var.$dark-text;
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
   display: inline-block;
   background-color: transparent;
-  box-shadow: 0 2px 3px $shadow;
+  box-shadow: 0 2px 3px var.$shadow;
   transition: box-shadow 0.2s ease-out;
 
   &_stop {
     color: hsl(0, 100, 40);
   }
-  &_save {
+  &_primary {
     color: white;
     background-color: hsl(200, 100, 40);
   }
@@ -23,9 +20,9 @@ $shadow-pressed: hsl(200, 20, 20);
     flex: 1;
   }
   &:active {
-    box-shadow: 0 2px 3px $shadow-pressed;
+    box-shadow: 0 2px 3px var.$shadow-pressed;
   }
   &:hover {
-    box-shadow: 0 2px 3px $shadow-hover;
+    box-shadow: 0 2px 3px var.$shadow-hover;
   }
 }

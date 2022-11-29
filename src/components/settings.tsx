@@ -131,7 +131,7 @@ export const Settings = () => {
                 </div>
                 <div className={styles.buttons}>
                   <button
-                    className={`${buttonStyles.button} ${buttonStyles.button_save} ${buttonStyles.button_grow}`}
+                    className={`${buttonStyles.button} ${buttonStyles.button_primary} ${buttonStyles.button_grow}`}
                     type="submit"
                   >
                     Save

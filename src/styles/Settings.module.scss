@@ -1,7 +1,4 @@
-$darker-text: hsl(0, 0, 10%);
-$shadow: hsl(200, 20, 60);
-$shadow-hover: hsl(200, 20, 40);
-$shadow-pressed: hsl(200, 20, 20);
+@use "/src/styles/variables" as var;
 
 .settings-button {
   position: absolute;
@@ -13,12 +10,12 @@ $shadow-pressed: hsl(200, 20, 20);
   padding: 0.25rem;
   border-radius: 50%;
   display: flex;
-  box-shadow: 0 2px 3px $shadow;
+  box-shadow: 0 2px 3px var.$shadow;
   &:active {
-    box-shadow: 0 2px 3px $shadow-pressed;
+    box-shadow: 0 2px 3px var.$shadow-pressed;
   }
   &:hover {
-    box-shadow: 0 2px 3px $shadow-hover;
+    box-shadow: 0 2px 3px var.$shadow-hover;
   }
 }
 
@@ -34,7 +31,7 @@ $shadow-pressed: hsl(200, 20, 20);
 }
 
 .header {
-  color: $darker-text;
+  color: var.$darker-text;
   font-weight: bold;
 }
 

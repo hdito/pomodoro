@@ -1,4 +1,6 @@
+import { AddTaskForm } from "@/components/addTaskForm";
 import { Settings } from "@/components/settings";
+import { Tasks } from "@/components/tasks";
 import {
   pause,
   selectTimerValues,
@@ -42,58 +44,62 @@ export function Timer() {
   const b = block(styles);
 
   return (
-    <div className={styles.container}>
-      <div className={styles.timer}>
-        <div className={styles["mode-button-container"]}>
-          <button
-            className={b("mode-button", { active: mode === "focus" })}
-            onClick={() => dispatch(setMode("focus"))}
-            aria-current={mode === "focus" ? "step" : "false"}
-          >
-            Focus
-          </button>
-          <button
-            className={b("mode-button", { active: mode === "break" })}
-            onClick={() => dispatch(setMode("break"))}
-            aria-current={mode === "break" ? "step" : "false"}
-          >
-            Break
-          </button>
-          <button
-            onClick={() => dispatch(setMode("longBreak"))}
-            className={b("mode-button", { active: mode === "longBreak" })}
-            aria-current={mode === "longBreak" ? "step" : "false"}
-          >
-            Long break
-          </button>
-          <Settings />
-        </div>
-        <h1 role="timer" className={`${styles.time}`}>
-          {format(remainingTime, "mm:ss")}
-        </h1>
-        <div className={styles["control-buttons"]}>
-          {isPause ? (
+    <div className={styles.app}>
+      <div className={styles.container}>
+        <div className={styles.timer}>
+          <div className={styles["mode-button-container"]}>
             <button
-              className={`${buttonStyles.button} ${buttonStyles.button_grow}`}
-              onClick={() => dispatch(start())}
+              className={b("mode-button", { active: mode === "focus" })}
+              onClick={() => dispatch(setMode("focus"))}
+              aria-current={mode === "focus" ? "step" : "false"}
             >
-              Start
+              Focus
             </button>
-          ) : (
             <button
-              className={`${buttonStyles.button} ${buttonStyles.button_grow}`}
-              onClick={() => dispatch(pause())}
+              className={b("mode-button", { active: mode === "break" })}
+              onClick={() => dispatch(setMode("break"))}
+              aria-current={mode === "break" ? "step" : "false"}
             >
-              Pause
+              Break
             </button>
-          )}
-          <button
-            className={`${buttonStyles.button} ${buttonStyles.button_stop} ${buttonStyles.button_grow}`}
-            onClick={() => dispatch(stop())}
-          >
-            Stop
-          </button>
+            <button
+              onClick={() => dispatch(setMode("longBreak"))}
+              className={b("mode-button", { active: mode === "longBreak" })}
+              aria-current={mode === "longBreak" ? "step" : "false"}
+            >
+              Long break
+            </button>
+            <Settings />
+          </div>
+          <h1 role="timer" className={`${styles.time}`}>
+            {format(remainingTime, "mm:ss")}
+          </h1>
+          <div className={styles["control-buttons"]}>
+            {isPause ? (
+              <button
+                className={`${buttonStyles.button} ${buttonStyles.button_grow}`}
+                onClick={() => dispatch(start())}
+              >
+                Start
+              </button>
+            ) : (
+              <button
+                className={`${buttonStyles.button} ${buttonStyles.button_grow}`}
+                onClick={() => dispatch(pause())}
+              >
+                Pause
+              </button>
+            )}
+            <button
+              className={`${buttonStyles.button} ${buttonStyles.button_stop} ${buttonStyles.button_grow}`}
+              onClick={() => dispatch(stop())}
+            >
+              Stop
+            </button>
+          </div>
         </div>
+        <AddTaskForm />
+        <Tasks />
       </div>
     </div>
   );

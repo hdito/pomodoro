@@ -1,24 +1,27 @@
-$bg: hsl(210, 33%, 97%);
-$dark-text: hsl(0, 0, 20%);
-$darker-text: hsl(0, 0, 10%);
-$shadow: hsl(200, 10%, 60%);
-$shadow-hover: hsl(200, 10, 40);
-$shadow-pressed: hsl(200, 10, 20);
+@use "src/styles/variables" as var;
+
+.app {
+  min-height: 100vh;
+  padding: 4rem 4rem;
+  color: var.$dark-text;
+  background-color: var.$bg;
+}
 
 .container {
-  color: $dark-text;
-  background-color: $bg;
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 100vh;
-  padding: 4rem 4rem;
+  max-width: 320px;
+  min-width: fit-content;
+  width: 100%;
+  margin: 0 auto;
   transition: background-color 0.5s;
 }
 
 .mode-button-container {
   display: flex;
   justify-content: space-between;
+  gap: 0.5rem;
 }
 
 .mode-button {
@@ -27,9 +30,17 @@ $shadow-pressed: hsl(200, 10, 20);
   border-radius: 0.5rem;
   transition: background-color 0.2s, box-shadow 0.1s;
 
+  &:hover {
+    outline: 1px solid var.$shadow;
+  }
+
   &_active {
-    box-shadow: inset 0 0 4px $shadow;
+    box-shadow: inset 0 0 4px var.$shadow;
     background-color: hsl(0, 0, 97);
+
+    &:hover {
+      outline: 0;
+    }
   }
 }
 
@@ -44,8 +55,10 @@ $shadow-pressed: hsl(200, 10, 20);
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+  margin-bottom: 2rem;
   gap: 0.5rem;
-  box-shadow: 2px 4px 6px $shadow, -2px -4px 6px white;
+  box-shadow: 2px 4px 6px var.$shadow, -2px -4px 6px white;
 }
 
 .control-buttons {
@@ -59,7 +72,7 @@ $shadow-pressed: hsl(200, 10, 20);
 }
 
 .time {
-  color: $darker-text;
+  color: var.$darker-text;
   font-size: 4rem;
   font-weight: normal;
   font-family: "Courier New", Courier, monospace;

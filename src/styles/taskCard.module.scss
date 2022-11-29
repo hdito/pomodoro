@@ -1,0 +1,50 @@
+@use "/src/styles/variables" as var;
+
+.card {
+  color: var.$dark-text;
+  cursor: pointer;
+  width: 100%;
+  border-radius: 0.5rem;
+  background-color: white;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  transition: box-shadow 0.2s ease-out;
+  margin-top: 0.5rem;
+  box-shadow: 2px 2px 3px var.$shadow, -2px -2px 3px white;
+
+  &:hover {
+    box-shadow: 2px 2px 3px var.$shadow-hover, -2px -2px 3px white;
+  }
+}
+
+.delete-button {
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+
+  &:hover {
+    color: black;
+  }
+}
+
+.label {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  cursor: inherit;
+  padding: 0.5rem;
+  min-width: 0;
+}
+
+.content {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  &_finished {
+    text-decoration: line-through;
+  }
+}

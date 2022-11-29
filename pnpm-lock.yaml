@@ -21,6 +21,7 @@ specifiers:
   formik: ^2.2.9
   jsdom: ^20.0.2
   module-clsx: ^1.0.0
+  nanoid: ^4.0.0
   next: 13.0.3
   react: 18.2.0
   react-dom: 18.2.0
@@ -69,6 +70,9 @@ dependencies:
   vite-tsconfig-paths: 3.5.2_vite@3.2.4
   vitest: 0.25.2_jsdom@20.0.2+sass@1.56.1
   yup: 0.32.11
+
+devDependencies:
+  nanoid: 4.0.0
 
 packages:
 
@@ -3530,6 +3534,12 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
     dev: false
+
+  /nanoid/4.0.0:
+    resolution: {integrity: sha512-IgBP8piMxe/gf73RTQx7hmnhwz0aaEXYakvqZyE302IXW3HyVNhdNGC+O2MwMAVhLEnvXlvKtGbtJf6wvHihCg==}
+    engines: {node: ^14 || ^16 || >=18}
+    hasBin: true
+    dev: true
 
   /natural-compare/1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}

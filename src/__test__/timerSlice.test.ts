@@ -24,6 +24,7 @@ describe("Timer reducer", () => {
     it("Switch modes after reaches 0", () => {
       const store = getCustomTimerStore({ remainingTime: 1000 });
       store.dispatch(tick());
+      store.dispatch(tick());
       expect(store.getState()).toEqual(
         getCustomTimerState({ mode: "break", remainingTime: 5 * MS_IN_MINUTE })
       );
@@ -31,6 +32,7 @@ describe("Timer reducer", () => {
 
     it("Increment current cycle after break finishes", () => {
       const store = getCustomTimerStore({ mode: "break", remainingTime: 1000 });
+      store.dispatch(tick());
       store.dispatch(tick());
       expect(store.getState()).toEqual(
         getCustomTimerState({
@@ -48,6 +50,7 @@ describe("Timer reducer", () => {
         currentCycle: 3,
       });
       store.dispatch(tick());
+      store.dispatch(tick());
       expect(store.getState()).toEqual(
         getCustomTimerState({
           mode: "longBreak",
@@ -63,6 +66,7 @@ describe("Timer reducer", () => {
         remainingTime: 1000,
         currentCycle: 3,
       });
+      store.dispatch(tick());
       store.dispatch(tick());
       expect(store.getState()).toEqual(
         getCustomTimerState({

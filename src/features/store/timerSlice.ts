@@ -1,6 +1,7 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, nanoid, PayloadAction } from "@reduxjs/toolkit";
 import { MS_IN_MINUTE, MS_IN_SECOND } from "@/utils/constants";
 import { rootState } from "./store";
+import { task } from "@/types/task";
 
 export type timerState = {
   isPause: boolean;
@@ -12,6 +13,7 @@ export type timerState = {
   isAutostart: boolean;
   currentCycle: number;
   cyclesTillLongBreak: number;
+  tasks: task[];
 };
 
 const initialState: timerState = {
@@ -24,6 +26,7 @@ const initialState: timerState = {
   isAutostart: false,
   currentCycle: 1,
   cyclesTillLongBreak: 3,
+  tasks: [],
 };
 
 const timerSlice = createSlice({
@@ -129,13 +132,52 @@ const timerSlice = createSlice({
           break;
       }
     },
+    addTask: {
+      reducer: (
+        state,
+        action: PayloadAction<{
+          id: string;
+          content: string;
+          createdAt: number;
+          isFinished: boolean;
+        }>
+      ) => {
+        state.tasks.push(action.payload);
+      },
+      prepare: (content: string) => {
+        return {
+          payload: {
+            content,
+            id: nanoid(),
+            createdAt: Date.now(),
+            isFinished: false,
+          },
+        };
+      },
+    },
+    deleteTask: (state, action: PayloadAction<string>) => {
+      state.tasks = state.tasks.filter((task) => task.id !== action.payload);
+    },
+    toggleTask: (state, action: PayloadAction<string>) => {
+      const task = state.tasks.find((task) => task.id === action.payload);
+      if (task) task.isFinished = !task.isFinished;
+    },
   },
 });
 
 export default timerSlice.reducer;
 
-export const { start, pause, tick, stop, changeSettings, setMode } =
-  timerSlice.actions;
+export const {
+  start,
+  pause,
+  tick,
+  stop,
+  changeSettings,
+  setMode,
+  addTask,
+  deleteTask,
+  toggleTask,
+} = timerSlice.actions;
 
 export const selectSettingsValues = (state: rootState) => {
   return {
@@ -153,4 +195,13 @@ export const selectTimerValues = (state: rootState) => {
     mode: state.mode,
     remainingTime: state.remainingTime,
   };
+};
+
+export const selectTasks = (state: rootState) => {
+  return state.tasks
+    .map((task) => task)
+    .sort((task1, task2) => task2.createdAt - task1.createdAt)
+    .sort(
+      (task1, task2) => Number(task1.isFinished) - Number(task2.isFinished)
+    );
 };
