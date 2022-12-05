@@ -26,20 +26,16 @@ export function Timer() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!isPause && !(tickRef.current instanceof Timeout))
+    if (!isPause)
       tickRef.current = new Timeout(() => {
         dispatch(tick());
+        if (remainingTime !== 0) return;
+        playAlarm();
       }, 1000);
     if (isPause && tickRef.current instanceof Timeout) {
       tickRef.current.clear();
-      tickRef.current = null;
     }
-  }, [isPause, dispatch]);
-
-  useEffect(() => {
-    if (remainingTime > 0) return;
-    playAlarm();
-  }, [remainingTime, playAlarm]);
+  }, [playAlarm, remainingTime, isPause, dispatch]);
 
   const b = block(styles);
 
