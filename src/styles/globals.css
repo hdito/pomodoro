@@ -16,10 +16,7 @@ a {
 }
 
 html {
-  @media (min-width: 480) {
-    font-size: 20;
-  }
-  font-size: 14px;
+  font-size: 16px;
 }
 
 h1,
