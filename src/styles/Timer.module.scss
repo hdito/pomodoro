@@ -1,0 +1,59 @@
+@use "/src/styles/colors" as colors;
+
+.mode-button-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.mode-button {
+  padding: 0.5rem 1rem;
+  background-color: transparent;
+  border-radius: 0.5rem;
+  transition: background-color 0.2s, box-shadow 0.2s;
+
+  &:hover {
+    outline: 1px solid colors.$slate-400;
+  }
+
+  &_active {
+    box-shadow: inset 0 2px 4px colors.$slate-400, inset 0 -2px 4px white;
+    background-color: colors.$slate-50-50;
+
+    &:hover {
+      outline: 0;
+    }
+  }
+}
+
+.timer {
+  padding: 1rem;
+  background-color: white;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 2rem;
+  gap: 1rem;
+  box-shadow: 0 4px 4px colors.$slate-400, 0 -4px 4px white;
+}
+
+.control-buttons {
+  gap: 1rem;
+  display: flex;
+  width: 100%;
+  padding: 0 2rem;
+}
+
+.time {
+  font-size: 4rem;
+  line-height: 4rem;
+  font-weight: normal;
+  font-family: "Fira Code", Courier, monospace;
+}
+
+.cycle {
+  text-align: center;
+}

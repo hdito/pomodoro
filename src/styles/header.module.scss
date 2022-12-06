@@ -1,0 +1,14 @@
+@use "/src/styles/textSize" as textSize;
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.header-text {
+  font-size: textSize.$text-3xl;
+  font-weight: bold;
+}

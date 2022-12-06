@@ -1,0 +1,18 @@
+@use "/src/styles/colors" as colors;
+
+.app {
+  min-height: 100vh;
+  font-family: "Open Sans", sans-serif;
+  padding: 1rem;
+  color: colors.$slate-800;
+  background-color: colors.$slate-100;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 360px;
+  width: 100%;
+  margin: 0 auto;
+}

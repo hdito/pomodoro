@@ -1,0 +1,27 @@
+@use "/src/styles/colors" as colors;
+
+.input {
+  padding: 0.5rem;
+  border: 0;
+  box-shadow: inset 0 2px 4px colors.$slate-400, inset 0 -2px 4px white;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  background-color: colors.$slate-50-50;
+
+  &:focus {
+    outline: 1px solid colors.$blue-500;
+  }
+
+  &:focus-visible {
+    outline: 1px solid colors.$blue-500;
+  }
+
+  &:invalid {
+    outline: 1px solid colors.$red-700;
+  }
+}
+
+.input-number {
+  @extend .input;
+  width: 6ch;
+}
