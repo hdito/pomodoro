@@ -1,4 +1,4 @@
-import styles from "@/styles/Settings.module.scss";
+import styles from "@/styles/settings.module.scss";
 import { ErrorMessage, Field } from "formik";
 
 export const SettingsField = ({

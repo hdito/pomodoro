@@ -4,7 +4,7 @@ import {
   selectSettingsValues,
 } from "@/features/store/timerSlice";
 import buttonStyles from "@/styles/button.module.scss";
-import styles from "@/styles/Settings.module.scss";
+import styles from "@/styles/settings.module.scss";
 import { Form, Formik } from "formik";
 import { useState } from "react";
 import { IoSettingsSharp } from "react-icons/io5";
