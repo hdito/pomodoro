@@ -1,15 +1,16 @@
 @use "/src/styles/variables" as var;
+@use "/src/styles/textSize" as textSize;
 
 .settings-button {
-  position: absolute;
-  right: -3rem;
-  font-size: 2rem;
+  font-size: textSize.$text-sm;
   cursor: pointer;
-  fill: hsl(200, 40%, 20%);
   background-color: white;
-  padding: 0.25rem;
-  border-radius: 50%;
+  padding: 0.5rem;
+  border-radius: 1rem;
   display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  align-items: center;
   box-shadow: 0 2px 3px var.$shadow;
   &:active {
     box-shadow: 0 2px 3px var.$shadow-pressed;
@@ -17,6 +18,10 @@
   &:hover {
     box-shadow: 0 2px 3px var.$shadow-hover;
   }
+}
+
+.settings-icon {
+  font-size: textSize.$text-xl;
 }
 
 .popup {

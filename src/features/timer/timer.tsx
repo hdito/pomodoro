@@ -61,7 +61,6 @@ export const Timer = () => {
         >
           Long break
         </button>
-        <Settings />
       </div>
       <h1 role="timer" className={`${styles.time}`}>
         {format(remainingTime, "mm:ss")}

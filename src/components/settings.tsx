@@ -31,7 +31,12 @@ export const Settings = () => {
         onClick={() => setIsOpen(true)}
         className={styles["settings-button"]}
       >
-        <IoSettingsSharp fill="inherit" title="Settings" />
+        <IoSettingsSharp
+          className={styles["settings-icon"]}
+          fill="inherit"
+          title="Settings"
+        />
+        Settings
       </button>
       {isOpen && (
         <div
