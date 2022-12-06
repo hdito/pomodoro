@@ -45,7 +45,7 @@ const timerSlice = createSlice({
       switch (state.mode) {
         case "focus":
           state.remainingTime =
-            state.currentCycle < state.cyclesTillLongBreak
+            state.currentCycle % state.cyclesTillLongBreak === 0
               ? state.breakTime * MS_IN_MINUTE
               : state.longBreakTime * MS_IN_MINUTE;
           state.mode =
@@ -60,7 +60,7 @@ const timerSlice = createSlice({
           break;
         case "longBreak":
           state.mode = "focus";
-          state.currentCycle = 1;
+          state.currentCycle++;
           state.remainingTime = state.focusTime * MS_IN_MINUTE;
           break;
       }
@@ -194,6 +194,7 @@ export const selectTimerValues = (state: rootState) => {
     isPause: state.isPause,
     mode: state.mode,
     remainingTime: state.remainingTime,
+    currentCycle: state.currentCycle,
   };
 };
 

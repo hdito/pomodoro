@@ -1,23 +1,24 @@
 import {
-  selectTimerValues,
-  tick,
-  setMode,
   pause,
+  selectTimerValues,
+  setMode,
   start,
   stop,
+  tick,
 } from "@/features/store/timerSlice";
+import buttonStyles from "@/styles/button.module.scss";
+import styles from "@/styles/timer.module.scss";
+import { getOrdinalString } from "@/utils/getOrdinalString";
 import { Timeout } from "@/utils/timeout";
 import { useAlarm } from "@/utils/useAlarm";
 import { format } from "date-fns";
 import block from "module-clsx";
-import { useRef, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Settings } from "@/components/settings";
-import styles from "@/styles/timer.module.scss";
-import buttonStyles from "@/styles/button.module.scss";
+import { useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 export const Timer = () => {
-  const { isPause, mode, remainingTime } = useSelector(selectTimerValues);
+  const { isPause, mode, remainingTime, currentCycle } =
+    useSelector(selectTimerValues);
   const tickRef = useRef<Timeout | null>(null);
   const playAlarm = useAlarm();
 
@@ -62,9 +63,14 @@ export const Timer = () => {
           Long break
         </button>
       </div>
-      <h1 role="timer" className={`${styles.time}`}>
-        {format(remainingTime, "mm:ss")}
-      </h1>
+      <div>
+        <h1 role="timer" className={`${styles.time}`}>
+          {format(remainingTime, "mm:ss")}
+        </h1>
+        <div className={styles.cycle}>
+          {`${getOrdinalString(currentCycle)} cycle`}
+        </div>
+      </div>
       <div className={styles["control-buttons"]}>
         {isPause ? (
           <button

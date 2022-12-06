@@ -130,7 +130,7 @@ export const Settings = () => {
                 </label>
                 <div className={styles["settings-block"]}>
                   <SettingsField
-                    title="Cycles till the long break"
+                    title="Count of cycles between long breaks"
                     name="cyclesTillLongBreak"
                   />
                 </div>
