@@ -136,17 +136,17 @@ export const Settings = () => {
                 </div>
                 <div className={styles.buttons}>
                   <button
-                    className={`${buttonStyles.button} ${buttonStyles.button_primary} ${buttonStyles.button_grow}`}
-                    type="submit"
-                  >
-                    Save
-                  </button>
-                  <button
                     onClick={() => setIsOpen(false)}
-                    className={`${buttonStyles.button} ${buttonStyles.button_grow}`}
+                    className={buttonStyles.button}
                     type="button"
                   >
                     Cancel
+                  </button>
+                  <button
+                    className={`${buttonStyles.button} ${buttonStyles.button_primary}`}
+                    type="submit"
+                  >
+                    Save
                   </button>
                 </div>
               </Form>

@@ -1,28 +1,27 @@
-@use "src/styles/variables" as var;
+@use "/src/styles/colors" as colors;
 
 .button {
-  color: var.$dark-text;
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
   display: inline-block;
   background-color: transparent;
-  box-shadow: 0 2px 3px var.$shadow;
+  box-shadow: 0 2px 4px colors.$slate-600;
   transition: box-shadow 0.2s ease-out;
 
   &_stop {
-    color: hsl(0, 100, 40);
+    color: colors.$red-700;
   }
   &_primary {
     color: white;
-    background-color: hsl(200, 100, 40);
+    background-color: colors.$blue-500;
   }
   &_grow {
     flex: 1;
   }
   &:active {
-    box-shadow: 0 2px 3px var.$shadow-pressed;
+    box-shadow: 0 2px 3px colors.$slate-800;
   }
   &:hover {
-    box-shadow: 0 2px 3px var.$shadow-hover;
+    box-shadow: 0 2px 3px colors.$slate-700;
   }
 }

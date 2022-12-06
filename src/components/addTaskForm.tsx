@@ -1,6 +1,7 @@
 import { addTask } from "@/features/store/timerSlice";
 import styles from "@/styles/addTaskForm.module.scss";
 import buttonStyles from "@/styles/button.module.scss";
+import inputStyles from "@/styles/input.module.scss";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -30,7 +31,7 @@ export const AddTaskForm = () => {
               <label className={styles.label} htmlFor="task-input">
                 Task
                 <Field
-                  className={styles.input}
+                  className={inputStyles.input}
                   name="task"
                   id="task-input"
                   type="text"
@@ -41,16 +42,16 @@ export const AddTaskForm = () => {
               </label>
               <div className={styles["buttons-container"]}>
                 <button
-                  className={`${buttonStyles.button} ${buttonStyles.button_primary} ${buttonStyles.button_grow}`}
-                  type="submit"
-                >
-                  Add
-                </button>
-                <button
-                  className={`${buttonStyles.button} ${buttonStyles.button_grow}`}
+                  className={`${buttonStyles.button}`}
                   onClick={() => setIsOpen(false)}
                 >
                   Cancel
+                </button>
+                <button
+                  className={`${buttonStyles.button} ${buttonStyles.button_primary}`}
+                  type="submit"
+                >
+                  Add
                 </button>
               </div>
             </Form>

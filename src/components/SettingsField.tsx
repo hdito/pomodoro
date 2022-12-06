@@ -1,4 +1,5 @@
 import styles from "@/styles/settings.module.scss";
+import inputStyles from "@/styles/input.module.scss";
 import { ErrorMessage, Field } from "formik";
 
 export const SettingsField = ({
@@ -13,7 +14,7 @@ export const SettingsField = ({
       {title}
       <Field
         aria-errormessage={`error-${name}`}
-        className={styles.input}
+        className={inputStyles["input-number"]}
         type="number"
         name={name}
         id={name}

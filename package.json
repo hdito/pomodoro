@@ -44,5 +44,9 @@
     "vite-tsconfig-paths": "^3.5.2",
     "vitest": "^0.25.2",
     "yup": "^0.32.11"
+  },
+  "devDependencies": {
+    "@fontsource/fira-code": "^4.5.12",
+    "@fontsource/open-sans": "^4.5.13"
   }
 }

@@ -1,10 +1,11 @@
-@use "src/styles/variables" as var;
+@use "/src/styles/colors" as colors;
 
 .app {
   min-height: 100vh;
+  font-family: "Open Sans", sans-serif;
   padding: 1rem;
-  color: var.$dark-text;
-  background-color: var.$bg;
+  color: colors.$slate-800;
+  background-color: colors.$slate-100;
 }
 
 .container {

@@ -1,20 +1,19 @@
-@use "/src/styles/variables" as var;
+@use "/src/styles/colors" as colors;
 
 .card {
-  color: var.$dark-text;
   cursor: pointer;
   width: 100%;
-  border-radius: 0.5rem;
+  border-radius: 1rem;
   background-color: white;
   overflow: hidden;
   display: flex;
   align-items: center;
   transition: box-shadow 0.2s ease-out;
-  margin-top: 0.5rem;
-  box-shadow: 2px 2px 3px var.$shadow, -2px -2px 3px white;
+  margin-top: 0.75rem;
+  box-shadow: 0 4px 4px colors.$slate-400, 0 -4px 4px white;
 
   &:hover {
-    box-shadow: 2px 2px 3px var.$shadow-hover, -2px -2px 3px white;
+    box-shadow: 0 2px 2px colors.$slate-400, 0 -2px 2px white;
   }
 }
 
@@ -23,9 +22,11 @@
   display: flex;
   align-items: center;
   padding: 0.5rem;
+  color: colors.$slate-600;
+  transition: color 0.2s ease-in-out;
 
   &:hover {
-    color: black;
+    color: colors.$slate-800;
   }
 }
 

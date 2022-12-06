@@ -1,5 +1,5 @@
-@use "/src/styles/variables" as var;
 @use "/src/styles/textSize" as textSize;
+@use "/src/styles/colors" as colors;
 
 .settings-button {
   font-size: textSize.$text-sm;
@@ -11,12 +11,14 @@
   flex-direction: column;
   gap: 0.25rem;
   align-items: center;
-  box-shadow: 0 2px 3px var.$shadow;
+  box-shadow: 0 4px 4px colors.$slate-400, 0 -4px 4px white;
+
   &:active {
-    box-shadow: 0 2px 3px var.$shadow-pressed;
+    box-shadow: 0 2px 2px colors.$slate-600, 0 -2px 2px white;
   }
+
   &:hover {
-    box-shadow: 0 2px 3px var.$shadow-hover;
+    box-shadow: 0 2px 2px colors.$slate-400, 0 -2px 2px white;
   }
 }
 
@@ -36,7 +38,6 @@
 }
 
 .header {
-  color: var.$darker-text;
   font-weight: bold;
 }
 
@@ -46,72 +47,32 @@
   left: 0;
   min-width: 100vw;
   min-height: 100vh;
-  padding: 2rem 0;
+  padding: 1rem;
   background: hsla(0, 0%, 20%, 0.6);
   display: flex;
   justify-content: center;
 }
 
 .settings-block {
-  border-top: 2px solid hsl(200, 20, 80);
-  border-bottom: 2px solid hsl(200, 20, 80);
+  border-top: 2px solid colors.$slate-300;
+  border-bottom: 2px solid colors.$slate-300;
   padding-top: 1rem;
   padding-bottom: 1rem;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 1rem;
 }
 
 .label {
   font-weight: bold;
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
-}
-
-.input {
-  width: 6ch;
-  border: 0;
-  box-shadow: inset 0 0 4px hsl(200, 20, 50);
-  border-radius: 0.25rem;
-  padding: 0.5rem;
-  font-size: 1rem;
-  background-color: hsl(200, 20, 99);
-
-  &:focus-visible {
-    border-color: hsl(210, 50%, 50%);
-    outline: 0;
-  }
-  &:invalid {
-    border-color: hsl(0, 50%, 50%);
-  }
-}
-
-.change-button {
-  padding: calc(0.25rem + 2px) 0.5rem;
-  border-radius: 0.25rem;
-  background-color: hsl(0, 0%, 20%);
-  color: white;
-
-  &:hover {
-    opacity: 0.7;
-  }
+  gap: 0.5rem;
 }
 
 .error {
-  color: hsl(0, 100, 30);
+  color: colors.$red-700;
   max-width: fit-content;
-}
-
-.close {
-  padding: 0.5rem;
-  border-radius: 0.5rem;
-  border: 2px solid black;
-  background-color: hsl(0, 0%, 95%);
-
-  &:hover {
-    opacity: 0.7;
-  }
 }
 
 .switch {
@@ -123,5 +84,6 @@
 
 .buttons {
   display: flex;
+  justify-content: end;
   gap: 1rem;
 }
