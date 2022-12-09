@@ -31,11 +31,7 @@ export const Settings = () => {
         onClick={() => setIsOpen(true)}
         className={styles["settings-button"]}
       >
-        <IoSettingsSharp
-          className={styles["settings-icon"]}
-          fill="inherit"
-          title="Settings"
-        />
+        <IoSettingsSharp className={styles["settings-icon"]} fill="inherit" />
         Settings
       </button>
       {isOpen && (
@@ -59,20 +55,26 @@ export const Settings = () => {
               cyclesTillLongBreak,
             }}
             onSubmit={(values) => {
+              console.log(values);
               const updatedSettings: { [key: string]: number | boolean } = {};
-              Object.entries(values).map(([key, value]) => {
+              let isNeedUpdate = false;
+              Object.keys(values).map((key) => {
                 if (
-                  (key === "breakTime" ||
+                  (key === "focusTime" ||
+                    key === "breakTime" ||
                     key === "longBreakTime" ||
+                    key === "focusTime" ||
                     key === "isAutostart" ||
                     key === "cyclesTillLongBreak") &&
                   settingValues[key] !== values[key]
                 ) {
-                  updatedSettings[key] = value;
+                  updatedSettings[key] = values[key];
+                  isNeedUpdate = true;
                 }
               });
-
-              dispatch(changeSettings(updatedSettings));
+              if (isNeedUpdate) {
+                dispatch(changeSettings(updatedSettings));
+              }
               setIsOpen(false);
             }}
             validationSchema={object({
