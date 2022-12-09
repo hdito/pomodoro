@@ -11,20 +11,22 @@ import {
 } from "@/utils/customTimerStore";
 import { describe, expect, it } from "vitest";
 
-describe("Timer reducer", () => {
-  describe("Tick action", () => {
-    it("Dispatching tick decrement remaining time by 1 second", () => {
+describe("Timer", () => {
+  describe("Timer behaviour", () => {
+    it("Dispatching tick decrements remaining time by 1 second", () => {
       const store = getCustomTimerStore({ remainingTime: 5000 });
       store.dispatch(tick());
+
       expect(store.getState()).toEqual(
         getCustomTimerState({ remainingTime: 4000 })
       );
     });
 
-    it("Switch modes after reaches 0", () => {
+    it("Switch modes after timer finishes", () => {
       const store = getCustomTimerStore({ remainingTime: 1000 });
       store.dispatch(tick());
       store.dispatch(tick());
+
       expect(store.getState()).toEqual(
         getCustomTimerState({ mode: "break", remainingTime: 5 * MS_IN_MINUTE })
       );
@@ -34,6 +36,7 @@ describe("Timer reducer", () => {
       const store = getCustomTimerStore({ mode: "break", remainingTime: 1000 });
       store.dispatch(tick());
       store.dispatch(tick());
+
       expect(store.getState()).toEqual(
         getCustomTimerState({
           mode: "focus",
@@ -51,6 +54,7 @@ describe("Timer reducer", () => {
       });
       store.dispatch(tick());
       store.dispatch(tick());
+
       expect(store.getState()).toEqual(
         getCustomTimerState({
           mode: "longBreak",
@@ -68,6 +72,7 @@ describe("Timer reducer", () => {
       });
       store.dispatch(tick());
       store.dispatch(tick());
+
       expect(store.getState()).toEqual(
         getCustomTimerState({
           mode: "focus",
@@ -77,16 +82,18 @@ describe("Timer reducer", () => {
       );
     });
   });
-  describe("Change Settings action", () => {
+  describe("Changes in settings", () => {
     it("If user changes time settings of stopped timer it shows updated time", () => {
       const store = getCustomTimerStore({});
       store.dispatch(changeSettings({ focusTime: 1 }));
+
       expect(store.getState()).toEqual(
         getCustomTimerState({ focusTime: 1, remainingTime: 1 * MS_IN_MINUTE })
       );
 
       store.dispatch(setMode("break"));
       store.dispatch(changeSettings({ breakTime: 2 }));
+
       expect(store.getState()).toEqual(
         getCustomTimerState({
           mode: "break",
@@ -98,6 +105,7 @@ describe("Timer reducer", () => {
 
       store.dispatch(setMode("longBreak"));
       store.dispatch(changeSettings({ longBreakTime: 5 }));
+
       expect(store.getState()).toEqual(
         getCustomTimerState({
           mode: "longBreak",
@@ -121,6 +129,7 @@ describe("Timer reducer", () => {
           cyclesTillLongBreak: 5,
         })
       );
+
       expect(store.getState()).toEqual(
         getCustomTimerState({
           focusTime: 5,
