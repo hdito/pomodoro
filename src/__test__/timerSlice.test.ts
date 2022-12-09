@@ -60,7 +60,7 @@ describe("Timer reducer", () => {
       );
     });
 
-    it("Reset cycles after finishing long break", () => {
+    it("Set mode to focus after finishing long break", () => {
       const store = getCustomTimerStore({
         mode: "longBreak",
         remainingTime: 1000,
@@ -72,7 +72,7 @@ describe("Timer reducer", () => {
         getCustomTimerState({
           mode: "focus",
           remainingTime: 25 * MS_IN_MINUTE,
-          currentCycle: 1,
+          currentCycle: 4,
         })
       );
     });
