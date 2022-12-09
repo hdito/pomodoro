@@ -47,6 +47,8 @@
   left: 0;
   min-width: 100vw;
   min-height: 100vh;
+  max-height: 100vh;
+  overflow: scroll;
   padding: 1rem;
   background: hsla(0, 0%, 20%, 0.6);
   display: flex;
