@@ -25,6 +25,7 @@ export const AddTaskForm = () => {
             dispatch(addTask(task));
             resetForm();
           }}
+          validateOnBlur={false}
         >
           {() => (
             <Form className={styles.form}>

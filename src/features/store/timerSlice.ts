@@ -43,16 +43,16 @@ const timerSlice = createSlice({
       state.remainingTime -= MS_IN_SECOND;
       if (state.remainingTime >= 0) return;
       switch (state.mode) {
-        case "focus":
-          state.remainingTime =
-            state.currentCycle % state.cyclesTillLongBreak === 0
-              ? state.breakTime * MS_IN_MINUTE
-              : state.longBreakTime * MS_IN_MINUTE;
-          state.mode =
-            state.currentCycle < state.cyclesTillLongBreak
-              ? "break"
-              : "longBreak";
+        case "focus": {
+          if (state.currentCycle % state.cyclesTillLongBreak === 0) {
+            state.remainingTime = state.longBreakTime * MS_IN_MINUTE;
+            state.mode = "longBreak";
+            break;
+          }
+          state.remainingTime = state.breakTime * MS_IN_MINUTE;
+          state.mode = "break";
           break;
+        }
         case "break":
           state.mode = "focus";
           state.currentCycle++;
