@@ -103,6 +103,7 @@ export const Settings = () => {
                 .integer("Must be a natural number")
                 .required("Can't be empty"),
             })}
+            validateOnBlur={false}
           >
             {({ values, setFieldValue }) => (
               <Form className={styles.popup}>
